@@ -1,0 +1,87 @@
+<BlackLabel@Label>:
+    color: (0, 0, 0, 1)
+<TitleLabel@Label>:
+    canvas.before:
+        Color:
+            rgba: (0.59, 0.53, 0.76, 1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    color: (1, 1, 1, 1)
+
+
+<MainWindow>:
+    submit_button: submit_button
+    nome: nome
+    cognome: cognome
+    data_di_nascita: data_di_nascita
+    luogo_di_nascita: luogo_di_nascita
+    BoxLayout:
+        id: main_box
+        canvas.before:
+            Color:
+                rgba: (1, 1, 1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        orientation: "vertical"
+        BoxLayout:
+            id: title
+            size_hint_y: 0.20
+            TitleLabel:
+                font_size: 30
+                bold: True
+                text: "Form da compilare"
+        BoxLayout:
+            id: fields
+            orientation: "vertical"
+            BoxLayout:
+                size_hint_y: None
+                height: 50
+                BlackLabel:
+                    text: "Nome"
+                TextInput:
+                    id: nome
+                    multiline: False
+                    text: "20"
+            BoxLayout:
+                size_hint_y: None
+                height: 50
+                BlackLabel: 
+                    text: "Cognome"
+                TextInput:
+                    id: cognome
+                    multiline: False
+            BoxLayout:
+                size_hint_y: None
+                height: 50
+                BlackLabel: 
+                    text: "Data di Nascita"
+                TextInput:
+                    id: data_di_nascita
+                    multiline: False
+            BoxLayout:
+                size_hint_y: None
+                height: 50
+                BlackLabel: 
+                    text: "Luogo di Nascita"
+                TextInput:
+                    id: luogo_di_nascita
+                    multiline: False
+            BoxLayout:
+        BoxLayout:
+            id: button
+            size_hint_y: 0.20
+            Label:
+            Button:
+                id: submit_button
+                background_normal:""
+                background_color: (1, 0.3, 0, 1)
+                background_down: ""
+                text: "Invia"
+                on_press:
+                    self.background_color = (1, 0, 0, 0.8)
+                on_release:
+                    self.background_color = (1, 0.5, 0, 1)
+                    root.invia_form()
+            Label:
