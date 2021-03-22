@@ -5,7 +5,8 @@ class Constants:
     R = 287.05
     k2c = 273.15
     pi = np.pi
-    iterAir = 50 #test
+    iterazioni = 50
+
 
 def temperaturaambiente_Kelvin(Tamb):
     return Tamb + Constants.k2c
@@ -309,7 +310,7 @@ def numeroReynolds(Tamb,pamb,deltap,d3,d2max,d2min):
     return (cDuet*RhoA2*((d2max+d2min)/2))/muAir
 
 
-def newton(f, Df, x0, epsilon = 1e-10, epserr = 1e-10, max_iter = Constants.iterAir):
+def newton(f, Df, x0, epsilon = 1e-10, epserr = 1e-10, max_iter = Constants.iterazioni):
     '''Approximate solution of f(x)=0 by Newton's method.
 
     Parameters
@@ -359,7 +360,7 @@ def newton(f, Df, x0, epsilon = 1e-10, epserr = 1e-10, max_iter = Constants.iter
     return None
 
 
-def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, C = 0.8, r_n0 = 1):
+def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, r_n0 = 1):
     """ 
     Metodo di Newton implementato per il calcolo del coefficiente di efflusso dell'aria
     
@@ -381,9 +382,8 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, C = 0.8
     
     #coefficiente dell'aria incomprimibile calcolata con neutrium
     #https://neutrium.net/fluid-flow/discharge-coefficient-for-nozzles-and-orifices/
-    coeffAir_i = 0.9975-((6.53*np.sqrt(d2medio/d1))/np.sqrt(Re))
-    C_i=coeffAir_i
-    
+    C_i = 0.9975-((6.53*np.sqrt(d2medio/d1))/np.sqrt(Re))
+
     #esponente della trasformazione adiabatica
     gamma = RapportoCaloreAria(T2t)
     
@@ -396,7 +396,8 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, C = 0.8
     #equazione 16 del paper
     k = np.sqrt(2*f_i)
 
-    C1 = 0.8
+    #first guess
+    C1 = 0.8 
    
     fx = lambda x : x**(2/gamma)*(1-x**((gamma-1)/gamma))-(k*C1)**2*r_a**(2/gamma) * \
                        (1-r_a**((gamma-1)/gamma))
@@ -404,12 +405,38 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, C = 0.8
         #scrivo il valore della derivata della funzione precedente 
     Dfx = lambda x : (2/gamma)*x**((2-gamma)/gamma)-((gamma+1)/gamma)*x**(1/gamma)
     
-    iters=50
+    iters=Constants.iterazioni
+
+    #creazione vettori
+    r_n_first = list(range(iters))
+    f_loop = list(range(iters))
+    C_loop = list(range(iters))
     r_n = list(range(iters))
     C = list(range(iters))
     f_loop_2 = list(range(iters))
     err = list(range(iters))
-    r_n[0] = newton(fx, Dfx, r_n0)
+
+    #Il seguente ciclo "for" controlla che il punto iniziale x0 usato in newton sia corretto in quanto
+        # la funzione fx ha due "zeri". In questo caso è necessario trovare il secondo zero
+    x0 = 0.1 #first guess for newton
+    for n in range(0,iters-1):
+        r_n_first[n] = newton(fx,Dfx,x0)
+        if r_n_first[n] is None:
+            x0 = x0+0.1
+            continue
+        f_loop[n] = f_i*(2/r_n_first[n]**(1/k)-(k-1)*(1-r_n_first[n])/(k*\
+        r_n_first[n]**(2/k)*(1-r_n_first[n]**((k-1)/k))))
+
+        C_loop[n] = (1-np.sqrt(1-(2*f_loop[n]*(k-1)*(1-r_a)/(k*(1-\
+        r_a**((k-1)/k))))))/(2*f_loop[n]*r_a**(1/k))
+
+        if f_loop[n]>0 and C_loop[n]>0 and np.isreal(f_loop[n]) and np.isreal(C_loop[n]):
+            r_n_final = r_n_first[n]
+            break
+        x0 = x0+0.1
+
+    # r_n[0] = newton(fx, Dfx, r_n0)
+    r_n[0] = r_n_final
 
     
     for n in range(0,iters):
@@ -444,7 +471,7 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, C = 0.8
     return C[n]
 
 
-def portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, C = 0.8, r_n0 = 1):
+def portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, r_n0 = 1):
     """ 
     PORTATA IN MASSA DI ARIA
     
@@ -461,7 +488,7 @@ def portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, C = 0.8, r_n0 = 
     Returns:
         portata aria
     """ 
-    coeffAir = Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, C = 0.8, r_n0 = 1)
+    coeffAir = Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, r_n0 = 1)
     area2 = areaSezione2(d2max,d2min)
     T2t = TemperaturaTeoricaAria2(Tamb,pamb,deltap,d3,d2max,d2min)
     k = RapportoCaloreAria(T2t)
@@ -589,7 +616,7 @@ def NumeroDiReynoldsBenzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto):
     return cDt*RhoB*dgetto/muBenz
         
 
-def coefficiente_attrito_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,iters=50):
+def coefficiente_attrito_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto):
     """ 
     metodo di Newton implementato per la stima del coefficiente di attrito del getto 
     
@@ -603,7 +630,6 @@ def coefficiente_attrito_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,it
         hc: altezza dal ingresso del getto al pelo libero della benzina nella vaschetta
         hd: altezza dall'uscita del getto all'asse di simmetria del venturi
         dgetto: diametro del getto
-        iters: numero di iterazioni del mettodo
     
     Returns:
         coefficiente di attrito
@@ -616,18 +642,18 @@ def coefficiente_attrito_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,it
         f_fuel = lambda lambda_fuel: 2*np.log10(reynolds_fuel*np.sqrt(lambda_fuel))-0.8-(1/             
         np.sqrt(lambda_fuel))
         D_f_fuel = lambda lambda_fuel: 1/(2*lambda_fuel**1.5)+1/(lambda_fuel*np.log(10))
-        lambda_fuel = newton(f_fuel,D_f_fuel,0.0005,1e-5,iters)
+        lambda_fuel = newton(f_fuel,D_f_fuel,0.0005)
     
     return lambda_fuel
 
 
-def Coefficiente_efflusso_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd,iters=50):
-    lambdaB = coefficiente_attrito_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,iters=50)
+def Coefficiente_efflusso_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd):
+    lambdaB = coefficiente_attrito_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto)
     
     return 1/np.sqrt(1+((lambdaB*lcd)/(dgetto)))
 
-def portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd,iters=50):
-    coeffBenz = Coefficiente_efflusso_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd,iters=50)
+def portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd):
+    coeffBenz = Coefficiente_efflusso_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd)
     P2 = PressioneAriaTeorica2(Tamb,pamb,deltap,d3,d2max,d2min)
     RhoB = densitBenzina(Tamb)  
     areaGetto = areaSezioneGetto(dgetto)
@@ -637,7 +663,7 @@ def portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd,iters=50):
 
 ######################### RAPPORTO ARIA BENZINA #####################################################
 
-def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd, iters=50, C = 0.8, r_n0 = 1):
+def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd, r_n0 = 1):
     """ 
     metodo di Newton implementato per la stima del coefficiente di attrito del getto 
     
@@ -651,12 +677,11 @@ def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, d
         hc: altezza dal ingresso del getto al pelo libero della benzina nella vaschetta
         hd: altezza dall'uscita del getto all'asse di simmetria del venturi
         dgetto: diametro del getto
-        iters: numero di iterazioni del mettodo
     
     Returns:
         coefficiente di attrito
     """
-    portataA = portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, C = 0.8, r_n0 = 1)
-    portataB = portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd,iters=50)
+    portataA = portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, r_n0 = 1)
+    portataB = portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd)
         
     return portataA / portataB
