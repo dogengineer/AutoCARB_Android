@@ -5,7 +5,7 @@ class Constants:
     R = 287.05
     k2c = 273.15
     pi = np.pi
-    iterAir = 50
+    iterAir = 50 #test
 
 def temperaturaambiente_Kelvin(Tamb):
     return Tamb + Constants.k2c
