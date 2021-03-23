@@ -1,5 +1,4 @@
-<BlackLabel@Label>:
-    color: (0, 0, 0, 1)
+
 <TitleLabel@Label>:
     canvas.before:
         Color:
@@ -8,14 +7,32 @@
             size: self.size
             pos: self.pos
     color: (1, 1, 1, 1)
+<BlackLabel@Label>:
+    color: (0, 0, 0, 1)
+<BoxLayoutEntries@BoxLayout>:
+    size_hint_y: None
+    height: 30
+<BoxLayoutResult@BoxLayout>:
+    size_hint_y: None
+    height: 40
 
 
 <MainWindow>:
     submit_button: submit_button
-    nome: nome
-    cognome: cognome
-    data_di_nascita: data_di_nascita
-    luogo_di_nascita: luogo_di_nascita
+    tamb: tamb
+    pamb: pamb
+    phi: phi
+    deltap: deltap
+    d1: d1
+    d3: d3
+    d2max: d2max
+    d2min: d2min
+    hc: hc
+    hd: hd
+    dgetto: dgetto
+    lcd: lcd
+    rapporto_AF: rapporto_AF
+    
     BoxLayout:
         id: main_box
         canvas.before:
@@ -31,47 +48,115 @@
             TitleLabel:
                 font_size: 30
                 bold: True
-                text: "Form da compilare"
+                text: "AutoCARB"
         BoxLayout:
             id: fields
             orientation: "vertical"
-            BoxLayout:
-                size_hint_y: None
-                height: 50
+            spacing: 2
+            BoxLayoutEntries:
                 BlackLabel:
-                    text: "Nome"
+                    text: "Temperatura ambiente [°C]"
                 TextInput:
-                    id: nome
+                    id: tamb
                     multiline: False
                     text: "20"
-            BoxLayout:
-                size_hint_y: None
-                height: 50
-                BlackLabel: 
-                    text: "Cognome"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "Pressione ambienete [Pa]"
                 TextInput:
-                    id: cognome
+                    id: pamb
                     multiline: False
-            BoxLayout:
-                size_hint_y: None
-                height: 50
-                BlackLabel: 
-                    text: "Data di Nascita"
+                    text: "101325"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "Umidità relativa [%]"
                 TextInput:
-                    id: data_di_nascita
+                    id: phi
                     multiline: False
-            BoxLayout:
-                size_hint_y: None
-                height: 50
-                BlackLabel: 
-                    text: "Luogo di Nascita"
+                    text: "40"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "Delta pressione [Pa]"
                 TextInput:
-                    id: luogo_di_nascita
+                    id: deltap
                     multiline: False
+                    text: "13325"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "d1 [mm]"
+                TextInput:
+                    id: d1
+                    multiline: False
+                    text: "42"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "d3 [mm]"
+                TextInput:
+                    id: d3
+                    multiline: False
+                    text: "20" 
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "d2 massimo[mm]"
+                TextInput:
+                    id: d2max
+                    multiline: False
+                    text: "19"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "d2 minimo [mm]"
+                TextInput:
+                    id: d2min
+                    multiline: False
+                    text: "19"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "hc [mm]"
+                TextInput:
+                    id: hc
+                    multiline: False
+                    text: "17"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "hd [mm]"
+                TextInput:
+                    id: hd
+                    multiline: False
+                    text: "45"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "numero del getto [-]"
+                TextInput:
+                    id: dgetto
+                    multiline: False
+                    text: "97"
+            BoxLayoutEntries:
+                BlackLabel:
+                    text: "lunghezza del getto: lcd [mm]"
+                TextInput:
+                    id: lcd
+                    multiline: False
+                    text: "2"
+            BoxLayoutResult:
+                BlackLabel:
+                    font_size: 15
+                    bold: True
+                    text: "Rapporto Aria Benzina"
+                TextInput:
+                    id: rapporto_AF
+                    multiline: False
+                    text: ""
+            BoxLayoutResult:
+                BlackLabel:
+                    font_size: 15
+                    bold: True
+                    text: "Errore rispetto al valore stechiometrico [%]"
+                TextInput:
+                    text: "50%"
             BoxLayout:
         BoxLayout:
             id: button
-            size_hint_y: 0.20
+            size_hint_y: 0.05
             Label:
             Button:
                 id: submit_button
@@ -83,5 +168,27 @@
                     self.background_color = (1, 0, 0, 0.8)
                 on_release:
                     self.background_color = (1, 0.5, 0, 1)
-                    root.invia_form()
+                    root.conferma_invio_form()
             Label:
+
+<CustomPopup>:
+    invia_form: invia_form
+    BoxLayout:
+        orientation: "vertical"
+        Label: 
+            text: "Sei sicuro di inviare?"
+        BoxLayout:
+            Button:
+                size_hint_y: None
+                height: "50"
+                text: "Cancel"
+                on_release:
+                    root.dismiss_popup()
+            Button:
+                id: invia_form
+                size_hint_y: None
+                height: "50"
+                text: "Invia"
+                on_release: 
+                    root.invia_form()
+                    root.dismiss_popup()
