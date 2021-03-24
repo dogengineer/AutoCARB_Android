@@ -1,0 +1,3 @@
+title=AutoCARB pythone ciccone
+author=Davide Maieron
+orientation=portrait
