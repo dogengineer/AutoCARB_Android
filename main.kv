@@ -12,11 +12,11 @@
 <BlackLabel@Label>:
     color: (0, 0, 0, 1)
 <BoxLayoutEntries@BoxLayout>:
-    size_hint_y: None
-    height: 30
+    size_hint_y: 0.5
+    size_hint_x: 0.8
 <BoxLayoutResult@BoxLayout>:
-    size_hint_y: None
-    height: 40
+    size_hint_y: 0.6
+    size_hint_x: 0.8
 
 
 <MainWindow>:
@@ -35,7 +35,7 @@
     lcd: lcd
     rapporto_AF: rapporto_AF
     errore_AF: errore_AF
-    
+
     BoxLayout:
         id: main_box
         canvas.before:
@@ -55,7 +55,7 @@
         BoxLayout:
             id: fields
             orientation: "vertical"
-            spacing: 2
+            spacing: 5
             BoxLayoutEntries:
                 BlackLabel:
                     text: "Temperatura ambiente [°C]"
@@ -97,7 +97,7 @@
                 TextInput:
                     id: d3
                     multiline: False
-                    text: "20" 
+                    text: "20"
             BoxLayoutEntries:
                 BlackLabel:
                     text: "d2 massimo[mm]"
@@ -157,7 +157,7 @@
                 TextInput:
                     id: errore_AF
                     text: ""
-            BoxLayout:
+
         BoxLayout:
             id: button
             size_hint_y: 0.05
@@ -179,7 +179,7 @@
     invia_form: invia_form
     BoxLayout:
         orientation: "vertical"
-        Label: 
+        Label:
             text: "Sei sicuro di inviare?"
         BoxLayout:
             Button:
@@ -193,6 +193,6 @@
                 size_hint_y: None
                 height: "50"
                 text: "Invia"
-                on_release: 
+                on_release:
                     root.invia_form()
                     root.dismiss_popup()
