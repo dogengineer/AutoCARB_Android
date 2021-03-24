@@ -1,4 +1,4 @@
-#import kivy # Importa il package "kiwi", che contiene tanti moduli
+import kivy # Importa il package "kiwi", che contiene tanti moduli
 from kivy.properties import ObjectProperty
 from kivy.app import App # Dal modulo "kiwi.app" importa la classe "App"
 from kivy.uix.boxlayout import BoxLayout # Dal modulo "kiwi.uix.label" importa la classe "Label"
@@ -46,7 +46,7 @@ class MainWindow(BoxLayout):
              float(self.deltap.text), float(self.d1.text)*1e-3, float(self.d3.text)*1e-3, float(self.d2max.text)*1e-3, 
              float(self.d2min.text)*1e-3, float(self.hc.text)*1e-3, float(self.hd.text)*1e-3, float(self.dgetto.text)*1e-5, 
              float(self.lcd.text)*1e-3)
-        self.errore_AF.text = (str(np.round(err,decimals=2)),"vv")
+        self.errore_AF.text = str(np.round(err,decimals=2))
 
         
 
