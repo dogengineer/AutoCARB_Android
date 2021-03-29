@@ -1,15 +1,21 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.label import MDLabel
+from kivy.core.window import Window
+
+Window.size = (400,700)
 
 import AutoCARB
 import numpy as np
+import webbrowser
 
 class AutoCARB_app(MDApp):
 
+
     def build(self):
         self.title = "AutoCARB"
-        self.theme_cls.primary_palette = "Purple"
+        self.theme_cls.theme_style = "Dark"  # "Light"
+        self.theme_cls.primary_palette = "DeepPurple"
         self.theme_cls.primary_hue = "300"
         return Builder.load_file("AutoCARB_layout.kv")
 
@@ -21,6 +27,15 @@ class AutoCARB_app(MDApp):
     #                 halign="center",
     #             )
     #         )
+    
+    def image_button(self):
+        webbrowser.open('http://www.google.it')
+
+    def help_button(self):
+        webbrowser.open('https://github.com/dogengineer/AutoCARB/blob/main/Manuale_di_AutoCARB.pdf')
+
+        
+    
 
     def start_button(self):
         AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
