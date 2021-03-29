@@ -1,0 +1,3 @@
+title=adriano
+author=Davide Maieron
+orientation=portrait
