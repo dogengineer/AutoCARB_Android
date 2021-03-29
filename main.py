@@ -1,13 +1,17 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.label import MDLabel
-from kivy.core.window import Window
 
-Window.size = (400,700)
+# from kivy.core.window import Window
+# Window.softinput_mode = 'pan'
+# Window.size = (400,700)
 
 import AutoCARB
 import numpy as np
 import webbrowser
+
+from kivy.uix.popup import Popup
+from kivy.uix.image import Image
 
 class AutoCARB_app(MDApp):
 
@@ -29,7 +33,16 @@ class AutoCARB_app(MDApp):
     #         )
     
     def image_button(self):
-        webbrowser.open('http://www.google.it')
+        pop = Popup(title='Carburetor Dimensions',
+                content=Image(source='./media/drawing.jpg'),
+                    size_hint=(1, 1),
+                    separator_color= [0.7, 0.5, 1, 1],
+                    separator_height='5dp',
+                    title_align='center',
+                    # title_size='14sp',
+                    #  size=(400, 400)
+                     )
+        pop.open()
 
     def help_button(self):
         webbrowser.open('https://github.com/dogengineer/AutoCARB/blob/main/Manuale_di_AutoCARB.pdf')
