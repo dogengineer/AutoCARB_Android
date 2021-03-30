@@ -95,105 +95,127 @@ MDBoxLayout:
                 Rectangle:
                     size: self.size
                     pos: self.pos
-        GridLayout:
-            id: box
-            rows: 6
-            cols: 2
-            padding: 30
-            MDTextField:
-                id:temp
-                hint_text: "Room Temperature [°C]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "20"
-                halign: "center"
-            MDTextField:
-                id:pressione
-                hint_text: "Room Pressure [Pa]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "101325"
-                halign: "center"
-            MDTextField:
-                id:phi
-                hint_text: "Relative humidity [%]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "40"
-                halign: "center"
-            MDTextField:
-                id:dpressione
-                hint_text: "\u0394P [Pa]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "13325"
-                halign: "center"
-            MDTextField:
-                id:d1
-                hint_text: "d1 [mm]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "42"
-                halign: "center"
-            MDTextField:
-                id:d3
-                hint_text: "d3 [mm]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "20"
-                halign: "center"
-            MDTextField:
-                id:d2max
-                hint_text: "d2max [mm]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "19"
-                halign: "center"
-            MDTextField:
-                id:d2min
-                hint_text: " d2min [mm]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "19"
-                halign: "center"
-            MDTextField:
-                id:hc
-                hint_text: "hC [mm]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "17"
-                halign: "center"
-            MDTextField:
-                id:hd
-                hint_text: "hD [mm]"
-                #mode: "fill"
-                fill_color: 0, 0, 0, .4
-                text: "45"
-                halign: "center"
-            MDTextField:
-                id:dgetto
-                hint_text: "djet [mm]"
-                #mode: "rectangle"
-                fill_color: 0, 0, 0, .4
-                text: "97"
-                halign: "center"
-            MDTextField:
-                id:lcd
-                hint_text: "lCD [mm]"
-                #mode: "rectangle"
-                fill_color: 0, 0, 0, .4
-                text: "2"
-                halign: "center"
-            # MDTextField:
-            #     id:rapp_af
-            #     hint_text: "rapporto_AF"
-            #     fill_color: 0, 0, 0, .4
-            #     text: "101325"
-            # MDTextField:
-            #     id:errore
-            #     hint_text: "err"
-            #     fill_color: 0, 0, 0, .4
-            #     text: "101325"   
+        ScrollView:
+            size: self.size
+            
+            GridLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: 20
+                id: box
+                rows: 20
+                cols: 1
+                padding: 30
+                MDTextField:
+                    id:temp
+                    hint_text: "Room Temperature [°C]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "20"
+                    halign: "center"
+                MDTextField:
+                    id:pressione
+                    hint_text: "Room Pressure [Pa]"
+                    #mode: "rectangle"
+                    fill_color: 0, 0, 0, .4
+                    text: "101325"
+                    halign: "center"
+                MDTextField:
+                    id:phi
+                    hint_text: "Relative humidity [%]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "40"
+                    halign: "center"
+                MDTextField:
+                    id:dpressione
+                    hint_text: "\u0394P [Pa]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "13325"
+                    halign: "center"
+                MDTextField:
+                    id:d1
+                    hint_text: "d1 [mm]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "42"
+                    halign: "center"
+                MDTextField:
+                    id:d3
+                    hint_text: "d3 [mm]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "20"
+                    halign: "center"
+                MDTextField:
+                    id:d2max
+                    hint_text: "d2max [mm]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "19"
+                    halign: "center"
+                MDTextField:
+                    id:d2min
+                    hint_text: " d2min [mm]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "19"
+                    halign: "center"
+                MDTextField:
+                    id:hc
+                    hint_text: "hC [mm]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "17"
+                    halign: "center"
+                MDTextField:
+                    id:hd
+                    hint_text: "hD [mm]"
+                    #mode: "fill"
+                    fill_color: 0, 0, 0, .4
+                    text: "45"
+                    halign: "center"
+                MDTextField:
+                    id:dgetto
+                    hint_text: "djet [mm]"
+                    #mode: "rectangle"
+                    fill_color: 0, 0, 0, .4
+                    text: "97"
+                    halign: "center"
+                MDTextField:
+                    id:lcd
+                    hint_text: "lCD [mm]"
+                    #mode: "rectangle"
+                    fill_color: 0, 0, 0, .4
+                    text: "2"
+                    halign: "center"
+                MDLabel:
+                    id:v1
+                MDLabel:
+                    id:v2
+                MDLabel:
+                    id:v3
+                MDLabel:
+                    id:v4
+                MDLabel:
+                    id:v5
+                MDLabel:
+                    id:v6
+                MDLabel:
+                    id:v7
+                MDLabel:
+                    id:v8
+                # MDTextField:
+                #     id:rapp_af
+                #     hint_text: "rapporto_AF"
+                #     fill_color: 0, 0, 0, .4
+                #     text: "101325"
+                # MDTextField:
+                #     id:errore
+                #     hint_text: "err"
+                #     fill_color: 0, 0, 0, .4
+                #     text: "101325"   
         
         #ScrollView:
             #SmartTileWithLabel:
