@@ -1,8 +1,11 @@
 
+
 #Screen: #widget root
 MDBoxLayout:
-    orientation: "vertical"
+    # size_hint_y: None
+    # height: self.minimum_height
 
+    orientation: "vertical"
     MDToolbar:
         title: "AutoCARB"
         right_action_items: [["image-area", lambda x: app.image_button()], ["help-circle-outline", lambda x: app.help_button()]]
@@ -59,7 +62,7 @@ MDBoxLayout:
             MDLabel:
                 id: af
                 halign: "center"
-                text: "14.7"
+                text: "-"
                 size_hint_y: None
                 height: self.texture_size[1]
                 halign: "center"
@@ -68,13 +71,30 @@ MDBoxLayout:
             MDLabel:
                 id: err
                 halign: "center"
-                text: "error %"
+                text: "-"
                 size_hint_y: None
                 height: self.texture_size[1]
                 halign: "center"
                 theme_text_color: "Custom"
                 text_color: 0.7, 0.5, 1, 1
-        
+        MDLabel:
+            id: mixture_label
+            text: "Mixture Type"
+            halign: "center"
+            # font_style: "H4"
+            padding_x: 10
+            padding_y: 5
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            theme_text_color: "Custom"
+            text_color: 0.7, 0.5, 1, 1
+            canvas:
+                Color:
+                    rgba: 0.7, 0.5, 1, 0.2
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
         GridLayout:
             id: box
             rows: 6
@@ -96,70 +116,70 @@ MDBoxLayout:
                 halign: "center"
             MDTextField:
                 id:phi
-                hint_text: "Relative humidity"
+                hint_text: "Relative humidity [%]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "40"
                 halign: "center"
             MDTextField:
                 id:dpressione
-                hint_text: "Delta P"
+                hint_text: "\u0394P [Pa]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "13325"
                 halign: "center"
             MDTextField:
                 id:d1
-                hint_text: " d1"
+                hint_text: "d1 [mm]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "42"
                 halign: "center"
             MDTextField:
                 id:d3
-                hint_text: "d3"
+                hint_text: "d3 [mm]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "20"
                 halign: "center"
             MDTextField:
                 id:d2max
-                hint_text: "d2max"
+                hint_text: "d2max [mm]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "19"
                 halign: "center"
             MDTextField:
                 id:d2min
-                hint_text: " d2min"
+                hint_text: " d2min [mm]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "19"
                 halign: "center"
             MDTextField:
                 id:hc
-                hint_text: "hC"
+                hint_text: "hC [mm]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "17"
                 halign: "center"
             MDTextField:
                 id:hd
-                hint_text: "hD"
+                hint_text: "hD [mm]"
                 #mode: "fill"
                 fill_color: 0, 0, 0, .4
                 text: "45"
                 halign: "center"
             MDTextField:
                 id:dgetto
-                hint_text: "djet"
+                hint_text: "djet [mm]"
                 #mode: "rectangle"
                 fill_color: 0, 0, 0, .4
                 text: "97"
                 halign: "center"
             MDTextField:
                 id:lcd
-                hint_text: "lCD"
+                hint_text: "lCD [mm]"
                 #mode: "rectangle"
                 fill_color: 0, 0, 0, .4
                 text: "2"

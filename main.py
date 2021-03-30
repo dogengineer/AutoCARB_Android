@@ -3,8 +3,8 @@ from kivy.lang import Builder
 from kivymd.uix.label import MDLabel
 
 # from kivy.core.window import Window
-# Window.softinput_mode = 'pan'
-# Window.size = (400,700)
+# # Window.softinput_mode = 'pan'
+# Window.size = (400,300)
 
 import AutoCARB
 import numpy as np
@@ -45,10 +45,8 @@ class AutoCARB_app(MDApp):
         pop.open()
 
     def help_button(self):
-        webbrowser.open('https://github.com/dogengineer/AutoCARB/blob/main/Manuale_di_AutoCARB.pdf')
-
-        
-    
+        # webbrowser.open('https://github.com/dogengineer/AutoCARB/blob/main/Manuale_di_AutoCARB.pdf')
+        webbrowser.open_new('https://drive.google.com/file/d/1IMIabKooN9J7cfhAGmEh8y4WT2U6JtQe/view?usp=sharing')
 
     def start_button(self):
         AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
@@ -64,9 +62,25 @@ class AutoCARB_app(MDApp):
         float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
         float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
         float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
-        
+
+        lable = AutoCARB.lable_mixture(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
+        float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
+        float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
+        float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
+        float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
+        float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
+
         self.root.ids["af"].text = str(np.round(AF, decimals = 2))
-        self.root.ids["err"].text = str(np.round(error, decimals = 2))
+        self.root.ids["err"].text = str(str(np.round(error, decimals = 2))+' %')
+
+        self.root.ids["mixture_label"].text = lable
+        if lable == "Rich mixture":
+            self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)     
+        if lable == "Stoichiometric mixture":
+            self.root.ids["mixture_label"].text_color = (51/255, 153/255, 51/255, 1)     
+        if lable == "Lean mixture":
+            self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)   
+                
 
 
 AutoCARB_app().run()
