@@ -13,6 +13,7 @@ import webbrowser
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
 
+Builder.load_file('licence_label.kv') # serve per importare il file *.kv
 class AutoCARB_app(MDApp):
 
 

@@ -261,22 +261,27 @@ BoxLayout:
 
             ScrollView:
                 size: self.size
-                GridLayout:
-                    size_hint_y: None
-                    height: self.minimum_height
-                    # row_default_height: 20
-                    id: box
-                    rows: 1
-                    cols: 1
-                    padding: 10, 100
-                    MDLabel:
-                        text:
-                            '''Qui posso crivere quello he voglio. Posso andare a capo cosi
-                            oppure posso andare a capo in un altro modo:\n
-                            però cosi creo un altro paragrafo'''
-                        theme_text_color: "Custom"
-                        text_color: 0.7, 0.5, 1, 1
-                        # halign: 'center'
+                Copyright:
+                    padding: 30, 20
+                # GridLayout:
+                #     size_hint_y: None
+                #     height: self.minimum_height
+                #     # row_default_height: 20
+                #     id: box
+                #     rows: 1
+                #     cols: 1
+                #     padding: 10, 100
+                #     Copy:
+                    # MDLabel:
+                    #     text:
+                    #         '''Qui posso crivere quello he voglio. Posso andare a capo cosi
+                    #         oppure posso andare a capo in un altro modo:\n
+                    #         però cosi creo un altro paragrafo
+                    #         Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+                    #         Everyone is permitted to copy and distribute verbatim copies'''
+                    #     theme_text_color: "Custom"
+                    #     text_color: 0.7, 0.5, 1, 1
+                    #     # halign: 'center'
 
         MDBottomNavigationItem:
             name: 'screen 3'
