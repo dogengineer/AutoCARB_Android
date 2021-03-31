@@ -103,7 +103,7 @@ MDBoxLayout:
                 height: self.minimum_height
                 # row_default_height: 20
                 id: box
-                rows: 20
+                rows: 21
                 cols: 1
                 padding: 30
                 MDTextField:
@@ -178,7 +178,7 @@ MDBoxLayout:
                     halign: "center"
                 MDTextField:
                     id:dgetto
-                    hint_text: "djet [mm]"
+                    hint_text: "djet [ - ]"
                     #mode: "rectangle"
                     fill_color: 0, 0, 0, .4
                     text: "97"
@@ -190,22 +190,22 @@ MDBoxLayout:
                     fill_color: 0, 0, 0, .4
                     text: "2"
                     halign: "center"
-                MDLabel:
-                    id:v1
-                MDLabel:
-                    id:v2
-                MDLabel:
-                    id:v3
-                MDLabel:
-                    id:v4
-                MDLabel:
-                    id:v5
-                MDLabel:
-                    id:v6
-                MDLabel:
-                    id:v7
-                MDLabel:
-                    id:v8
+                # MDLabel:
+                #     id:v1
+                # MDLabel:
+                #     id:v2
+                # MDLabel:
+                #     id:v3
+                # MDLabel:
+                #     id:v4
+                # MDLabel:
+                #     id:v5
+                # MDLabel:
+                #     id:v6
+                # MDLabel:
+                #     id:v7
+                # MDLabel:
+                #     id:v8
                 # MDTextField:
                 #     id:rapp_af
                 #     hint_text: "rapporto_AF"
@@ -217,14 +217,13 @@ MDBoxLayout:
                 #     fill_color: 0, 0, 0, .4
                 #     text: "101325"   
         
-        #ScrollView:
-            #SmartTileWithLabel:
-                #size_hint: None, None
-                #width: "860dp"
-                #height: "680dp" 
-                #halign: "center"
-                #source: "./media/drawing.jpg"
-        
+                SmartTile:
+                    size_hint: 1, None
+                    # width: "860dp"
+                    height: "380dp" 
+                    halign: "center"
+                    source: "./media/background.png"
+    
 
         MDRaisedButton:
             id: mdbu
