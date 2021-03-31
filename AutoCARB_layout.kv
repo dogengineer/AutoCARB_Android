@@ -12,7 +12,7 @@ BoxLayout:
             name: 'screen 1'
             text: 'Home'
             icon: 'home'
-
+          
             GridLayout:
                 rows:5
                 MDLabel:
@@ -259,12 +259,24 @@ BoxLayout:
             text: 'Copyright'
             icon: 'copyright'
 
-            MDLabel:
-                text: 'I programming oasdssssssssssssssssssssssssss/
-                ssssssssssssssssssssssssssssssssssssssssssssssf C++'
-                theme_text_color: "Custom"
-                text_color: 0.7, 0.5, 1, 1
-                halign: 'center'
+            ScrollView:
+                size: self.size
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    # row_default_height: 20
+                    id: box
+                    rows: 1
+                    cols: 1
+                    padding: 10, 100
+                    MDLabel:
+                        text:
+                            '''Qui posso crivere quello he voglio. Posso andare a capo cosi
+                            oppure posso andare a capo in un altro modo:\n
+                            però cosi creo un altro paragrafo'''
+                        theme_text_color: "Custom"
+                        text_color: 0.7, 0.5, 1, 1
+                        # halign: 'center'
 
         MDBottomNavigationItem:
             name: 'screen 3'
