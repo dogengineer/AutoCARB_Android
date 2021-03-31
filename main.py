@@ -46,7 +46,7 @@ class AutoCARB_app(MDApp):
 
     def help_button(self):
         # webbrowser.open('https://github.com/dogengineer/AutoCARB/blob/main/Manuale_di_AutoCARB.pdf')
-        webbrowser.open_new('https://drive.google.com/drive/folders/1Jhl9PxwQLWuTAZI_e3_Zsp0LWXrp-Qie')
+        webbrowser.open_new('https://drive.google.com/drive/folders/1Jhl9PxwQLWuTAZI_e3_Zsp0LWXrp-Qie?usp=sharing')
 
     def start_button(self):
         AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
