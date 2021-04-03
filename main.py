@@ -10,8 +10,8 @@ import AutoCARB
 import numpy as np
 import webbrowser
 
-from kivy.metrics import dp
-from kivymd.uix.menu import MDDropdownMenu
+# from kivy.metrics import dp
+# from kivymd.uix.menu import MDDropdownMenu
 
 # Builder.load_file('licence_label.kv') # serve per importare il file *.kv
 
@@ -19,11 +19,10 @@ from kivymd.uix.menu import MDDropdownMenu
 
 #################################################################################################
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, ListProperty
+# from kivy.properties import StringProperty, ListProperty
 
-from kivymd.app import MDApp
-from kivymd.theming import ThemableBehavior
-from kivymd.uix.list import OneLineIconListItem, MDList
+# from kivymd.theming import ThemableBehavior
+# from kivymd.uix.list import OneLineIconListItem, MDList
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
 
@@ -86,10 +85,6 @@ class AutoCARB_app(MDApp):
                      )
         pop.open()
     def theme_change(self):
-        # if value==True:
-        #     self.theme_cls.theme_style = "Light"
-        # else:
-        #     self.theme_cls.theme_style = "Dark"
         if self.theme_cls.theme_style == "Dark":
             self.theme_cls.theme_style = "Light"
         else:

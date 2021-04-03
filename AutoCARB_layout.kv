@@ -12,8 +12,8 @@
 
 <ContentNavigationDrawer>:
     orientation: "vertical"
-    padding: "8dp"
-    spacing: "8dp"
+    padding: "15dp"
+    spacing: "15dp"
 
     AnchorLayout:
         anchor_x: "left"
@@ -39,6 +39,7 @@
     #     size: self.size
     GridLayout:
         rows:4
+        padding: 10
         # size_hint_y: None
         # height: self.minimum_height
         MDFillRoundFlatIconButton:
@@ -98,7 +99,7 @@ Screen:
 
                     # Widget:
                     MDBottomNavigation:
-                        panel_color: .2, .2, .2, 1
+                        panel_color: .2, .2, .2, .5
 
                         MDBottomNavigationItem:
                             name: 'screen 1'
@@ -200,7 +201,7 @@ Screen:
                                         id: box
                                         rows: 14
                                         cols: 1
-                                        # padding: 30
+                                        padding: 30
                                         MDTextField:
                                             id:temp
                                             hint_text: "Room Temperature [°C]"
