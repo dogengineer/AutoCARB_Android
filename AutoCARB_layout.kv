@@ -35,45 +35,45 @@
         height: self.texture_size[1]
 
     
-    ScrollView:
-        size: self.size
-        GridLayout:
-            rows:4
-            size_hint_y: None
-            height: self.minimum_height
-            MDFillRoundFlatIconButton:
-                icon: "help-circle-outline"
-                text: "Link to Manual"
-                theme_text_color: "Custom"
-                text_color: 0.7, 0.5, 1, 1
-                md_bg_color: 255/255, 240/255, 24/255, 0
-                size_hint_x: 1
-                on_press: app.help_button()
-            MDFillRoundFlatIconButton:
-                icon: "theme-light-dark"
-                text: "App Theme Toggle"
-                theme_text_color: "Custom"
-                text_color: 0.7, 0.5, 1, 1
-                md_bg_color: 255/255, 240/255, 24/255, 0
-                size_hint_x: 1
-                on_press: app.theme_change()
-            MDFillRoundFlatIconButton:
-                icon: "email"
-                text: "Credits"
-                theme_text_color: "Custom"
-                text_color: 0.7, 0.5, 1, 1
-                md_bg_color: 255/255, 240/255, 24/255, 0
-                size_hint_x: 1
-                on_press: app.credits_button()
-            MDFillRoundFlatIconButton:
-                icon: "license"
-                text: "Link to Licence"
-                theme_text_color: "Custom"
-                text_color: 0.7, 0.5, 1, 1
-                md_bg_color: 255/255, 240/255, 24/255, 0
-                size_hint_x: 1
-                on_press: app.licence_button()
-                
+    # ScrollView:
+    #     size: self.size
+    GridLayout:
+        rows:4
+        # size_hint_y: None
+        # height: self.minimum_height
+        MDFillRoundFlatIconButton:
+            icon: "help-circle-outline"
+            text: "Link to Manual"
+            theme_text_color: "Custom"
+            text_color: 0.7, 0.5, 1, 1
+            md_bg_color: 255/255, 240/255, 24/255, 0
+            size_hint_x: 1
+            on_press: app.help_button()
+        MDFillRoundFlatIconButton:
+            icon: "theme-light-dark"
+            text: "App Theme Toggle"
+            theme_text_color: "Custom"
+            text_color: 0.7, 0.5, 1, 1
+            md_bg_color: 255/255, 240/255, 24/255, 0
+            size_hint_x: 1
+            on_press: app.theme_change()
+        MDFillRoundFlatIconButton:
+            icon: "email"
+            text: "Credits"
+            theme_text_color: "Custom"
+            text_color: 0.7, 0.5, 1, 1
+            md_bg_color: 255/255, 240/255, 24/255, 0
+            size_hint_x: 1
+            on_press: app.credits_button()
+        MDFillRoundFlatIconButton:
+            icon: "license"
+            text: "Link to Licence"
+            theme_text_color: "Custom"
+            text_color: 0.7, 0.5, 1, 1
+            md_bg_color: 255/255, 240/255, 24/255, 0
+            size_hint_x: 1
+            on_press: app.licence_button()
+            
                 
         # DrawerList:
         #     id: md_list
@@ -198,9 +198,9 @@ Screen:
                                         height: self.minimum_height
                                         # row_default_height: 20
                                         id: box
-                                        rows: 40
+                                        rows: 14
                                         cols: 1
-                                        padding: 30
+                                        # padding: 30
                                         MDTextField:
                                             id:temp
                                             hint_text: "Room Temperature [°C]"
@@ -285,7 +285,7 @@ Screen:
                                             fill_color: 0, 0, 0, .4
                                             text: "2"
                                             halign: "center"
-                                        
+                                    
                                         MDLabel:
                                             text: "---"
                                             # halign: "center"
@@ -306,38 +306,38 @@ Screen:
                                             # text_size: self.width, None
                                             theme_text_color: "Custom"
                                             text_color: 0.3, 1, 0.2, 0
-                                        # MDTextField:
-                                        #     id:rapp_af
-                                        #     hint_text: "rapporto_AF"
-                                        #     fill_color: 0, 0, 0, .4
-                                        #     text: "101325"
-                                        # MDTextField:
-                                        #     id:errore
-                                        #     hint_text: "err"
-                                        #     fill_color: 0, 0, 0, .4
-                                        #     text: "101325"   
-                                        # SmartTile:
-                                        #     size_hint: 1, None
-                                        #     width: "860dp"
-                                        #     height: "380dp" 
-                                        #     halign: "center"
-                                        #     source: "./media/drawing.jpg"
-                                        MDLabel:
-                                            id:v1
-                                        MDLabel:
-                                            id:v2
-                                        MDLabel:
-                                            id:v3
-                                        MDLabel:
-                                            id:v4
-                                        MDLabel:
-                                            id:v5
-                                        MDLabel:
-                                            id:v6
-                                        MDLabel:
-                                            id:v7
-                                        MDLabel:
-                                            id:v8
+                                    # MDTextField:
+                                    #     id:rapp_af
+                                    #     hint_text: "rapporto_AF"
+                                    #     fill_color: 0, 0, 0, .4
+                                    #     text: "101325"
+                                    # MDTextField:
+                                    #     id:errore
+                                    #     hint_text: "err"
+                                    #     fill_color: 0, 0, 0, .4
+                                    #     text: "101325"   
+                                    # SmartTile:
+                                    #     size_hint: 1, None
+                                    #     width: "860dp"
+                                    #     height: "380dp" 
+                                    #     halign: "center"
+                                    #     source: "./media/drawing.jpg"
+                                    # MDLabel:
+                                    #     id:v1
+                                    # MDLabel:
+                                    #     id:v2
+                                    # MDLabel:
+                                    #     id:v3
+                                    # MDLabel:
+                                    #     id:v4
+                                    # MDLabel:
+                                    #     id:v5
+                                    # MDLabel:
+                                    #     id:v6
+                                    # MDLabel:
+                                    #     id:v7
+                                    # MDLabel:
+                                    #     id:v8
                                 MDRaisedButton:
                                     id: mdbu
                                     text: "RUN"
