@@ -1,4 +1,5 @@
 
+#:import Clock kivy.clock.Clock
 <ItemDrawer>:
     # theme_text_color: "Custom"
     # on_release: self.parent.set_color_item(self)
@@ -49,7 +50,8 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_release: app.help_button()
+            #on_release: app.help_button()
+            on_release: Clock.schedule_once(lambda x: app.help_button(), 1)
         MDFillRoundFlatIconButton:
             icon: "theme-light-dark"
             text: "App Theme Toggle"
@@ -57,7 +59,8 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_release: app.theme_change()
+            #on_release: app.theme_change()
+            on_release: Clock.schedule_once(lambda x: app.theme_change(), 1)
         MDFillRoundFlatIconButton:
             icon: "email"
             text: "Credits"
@@ -65,7 +68,8 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_release: app.credits_button()
+            #on_release: app.credits_button()
+            on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
         MDFillRoundFlatIconButton:
             icon: "license"
             text: "Link to Licence"
@@ -73,7 +77,8 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_release: app.licence_button()
+            #on_release: app.licence_button()
+            on_release: Clock.schedule_once(lambda x: app.licence_button(), 1)
             
                 
         # DrawerList:
