@@ -87,8 +87,11 @@ class AutoCARB_app(MDApp):
     def theme_change(self):
         if self.theme_cls.theme_style == "Dark":
             self.theme_cls.theme_style = "Light"
+            self.root.ids['btt_layout'].panel_color = (255/255, 255/255, 255/255, 1)
         else:
             self.theme_cls.theme_style = "Dark"
+            self.root.ids['btt_layout'].panel_color = (.2, .2, .2, 1)
+
     def licence_button(self):
         webbrowser.open_new('https://github.com/dogengineer/AutoCARB/blob/main/LICENSE')
         
