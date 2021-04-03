@@ -49,7 +49,7 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_press: app.help_button()
+            on_release: app.help_button()
         MDFillRoundFlatIconButton:
             icon: "theme-light-dark"
             text: "App Theme Toggle"
@@ -57,7 +57,7 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_press: app.theme_change()
+            on_release: app.theme_change()
         MDFillRoundFlatIconButton:
             icon: "email"
             text: "Credits"
@@ -65,7 +65,7 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_press: app.credits_button()
+            on_release: app.credits_button()
         MDFillRoundFlatIconButton:
             icon: "license"
             text: "Link to Licence"
@@ -73,7 +73,7 @@
             text_color: 0.7, 0.5, 1, 1
             md_bg_color: 255/255, 240/255, 24/255, 0
             size_hint_x: 1
-            on_press: app.licence_button()
+            on_release: app.licence_button()
             
                 
         # DrawerList:
