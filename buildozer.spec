@@ -27,7 +27,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 3.0.2
+version = 3.0.4
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -50,7 +50,7 @@ presplash.filename = %(source.dir)s/media/splash.png
 
 # (str) Icon of the application
 #icon.filename = %(source.dir)s/data/icon.png
-icon.filename = %(source.dir)s/media/carb_icon.jpg
+icon.filename = %(source.dir)s/media/carb_icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait

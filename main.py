@@ -10,10 +10,41 @@ import AutoCARB
 import numpy as np
 import webbrowser
 
+from kivy.metrics import dp
+from kivymd.uix.menu import MDDropdownMenu
+
+# Builder.load_file('licence_label.kv') # serve per importare il file *.kv
+
+
+
+#################################################################################################
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import StringProperty, ListProperty
+
+from kivymd.app import MDApp
+from kivymd.theming import ThemableBehavior
+from kivymd.uix.list import OneLineIconListItem, MDList
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
 
-Builder.load_file('licence_label.kv') # serve per importare il file *.kv
+class ContentNavigationDrawer(BoxLayout):
+    pass
+# class ItemDrawer(OneLineIconListItem):
+    # icon = StringProperty()
+    # text_color = ListProperty((1, 1, 1, 1))
+# class DrawerList(ThemableBehavior, MDList):
+#     def set_color_item(self, instance_item):
+#         """Called when tap on a menu item."""
+
+#         # Set the color of the icon and text for the menu item.
+#         for item in self.children:
+#             if item.text_color == self.theme_cls.primary_color:
+#                 item.text_color = self.theme_cls.text_color
+#                 break
+#         instance_item.text_color = self.theme_cls.primary_color
+#################################################################################################
+
+
 class AutoCARB_app(MDApp):
 
 
@@ -23,19 +54,29 @@ class AutoCARB_app(MDApp):
         self.theme_cls.primary_palette = "DeepPurple"
         self.theme_cls.primary_hue = "300"
         return Builder.load_file("AutoCARB_layout.kv")
-
-    # def on_start(self):
-    #     for name_style in range(30):
-    #         self.root.ids.box.add_widget(
-    #             MDLabel(
-    #                 text=f"{name_style} style",
-    #                 halign="center",
-    #             )
-    #         )
     
-    def image_button(self):
+
+    def help_button(self):
+        webbrowser.open_new('https://drive.google.com/drive/folders/1Jhl9PxwQLWuTAZI_e3_Zsp0LWXrp-Qie')
+
+    #################################################################################################
+    # def on_start(self):
+    #     icons_item = {
+    #         "folder": "My files",
+    #         "account-multiple": "Shared with me",
+    #         "star": "Starred",
+    #         "history": "Recent",
+    #         "checkbox-marked": "Shared with me",
+    #         "upload": "Upload",
+    #     }
+    #     for icon_name in icons_item.keys():
+    #         self.root.ids.content_drawer.ids.md_list.add_widget(
+    #             ItemDrawer(icon=icon_name, text=icons_item[icon_name])
+    #         )
+
+    def credits_button(self):
         pop = Popup(title='Carburetor Dimensions',
-                content=Image(source='./media/drawing.jpg'),
+                content=Image(source='./media/gatto.png'),
                     size_hint=(1, 1),
                     separator_color= [0.7, 0.5, 1, 1],
                     separator_height='5dp',
@@ -44,10 +85,19 @@ class AutoCARB_app(MDApp):
                     #  size=(400, 400)
                      )
         pop.open()
-
-    def help_button(self):
-        # webbrowser.open('https://github.com/dogengineer/AutoCARB/blob/main/Manuale_di_AutoCARB.pdf')
-        webbrowser.open_new('https://drive.google.com/drive/folders/1Jhl9PxwQLWuTAZI_e3_Zsp0LWXrp-Qie')
+    def theme_change(self):
+        # if value==True:
+        #     self.theme_cls.theme_style = "Light"
+        # else:
+        #     self.theme_cls.theme_style = "Dark"
+        if self.theme_cls.theme_style == "Dark":
+            self.theme_cls.theme_style = "Light"
+        else:
+            self.theme_cls.theme_style = "Dark"
+    def licence_button(self):
+        webbrowser.open_new('https://github.com/dogengineer/AutoCARB/blob/main/LICENSE')
+        
+    #################################################################################################     
 
     def start_button(self):
         AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
@@ -81,7 +131,7 @@ class AutoCARB_app(MDApp):
             self.root.ids["mixture_label"].text_color = (51/255, 153/255, 51/255, 1)     
         if lable == "Lean mixture":
             self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)   
-                
+             
 
 
 AutoCARB_app().run()
