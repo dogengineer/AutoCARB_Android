@@ -13,7 +13,7 @@ import webbrowser
 # from kivy.metrics import dp
 # from kivymd.uix.menu import MDDropdownMenu
 
-# Builder.load_file('licence_label.kv') # serve per importare il file *.kv
+# Builder.load_file('credits.kv') # serve per importare il file *.kv
 
 
 
@@ -25,6 +25,16 @@ from kivy.uix.boxlayout import BoxLayout
 # from kivymd.uix.list import OneLineIconListItem, MDList
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
+
+from kivymd.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.label import Label
+
+from kivy.uix.scrollview import ScrollView
+
+
+
+aperto=False #inizializzo "aperto". Serve pe evitare di aprire tanti popup involontariamente (Jacopo non rompere)
 
 class ContentNavigationDrawer(BoxLayout):
     pass
@@ -74,8 +84,36 @@ class AutoCARB_app(MDApp):
     #         )
 
     def credits_button(self):
-        pop = Popup(title='Carburetor Dimensions',
-                content=Image(source='./media/gatto.png'),
+        global aperto
+        if aperto == True:
+            return
+        content = GridLayout(rows=2)
+        content.add_widget(MDLabel(text='''
+This application acts as a support for the regulation of 
+the carburetion of internal combustion engines.
+
+AutoCARB was developed by:
+Davide Maieron (ADD MAIL) and Adriano Mazzola (ADD MAIL) @@@@@@@@@@@@@@@@@ò
+
+With the collaboration of:
+Alessio Lei and Scorbutico (ADD MAIL)
+The splash page and the icon are edited by:
+Roberta Carlevaris
+            ''',
+                        padding_x=20,
+                        # size_hint=(None, None),
+                        # text_size = self.texture_size,
+                        # font_style='H6',
+                        theme_text_color="Custom",
+                        text_color=( 0.7, 0.5, 1, 1))
+                        )
+        btn=Button(text="CLOSE",
+                    size_hint_y=None
+                    )                            
+        content.add_widget(btn)
+        pop = Popup(title='Credits',
+                    content=content,
+                    auto_dismiss=True,
                     size_hint=(1, 1),
                     separator_color= [0.7, 0.5, 1, 1],
                     separator_height='5dp',
@@ -83,7 +121,16 @@ class AutoCARB_app(MDApp):
                     # title_size='14sp',
                     #  size=(400, 400)
                      )
+        btn.bind(on_press=pop.dismiss)
+        # btn.bind(on_press=self.check_pop_open)
+        pop.bind(on_dismiss=self.check_pop_open)
+        aperto=True
         pop.open()
+        return aperto
+    def check_pop_open(self,istance):
+        global aperto
+        aperto=False
+        print("orcodio")
     def theme_change(self):
         if self.theme_cls.theme_style == "Dark":
             self.theme_cls.theme_style = "Light"
