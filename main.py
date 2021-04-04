@@ -31,7 +31,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 
 from kivy.uix.scrollview import ScrollView
-
+from kivy.properties import ObjectProperty
 
 
 aperto=False #inizializzo "aperto". Serve pe evitare di aprire tanti popup involontariamente (Jacopo non rompere)
@@ -82,13 +82,15 @@ class AutoCARB_app(MDApp):
     #         self.root.ids.content_drawer.ids.md_list.add_widget(
     #             ItemDrawer(icon=icon_name, text=icons_item[icon_name])
     #         )
-
+    # credits = ObjectProperty(None)
     def credits_button(self):
+
         global aperto
         if aperto == True:
             return
         content = GridLayout(rows=2)
-        content.add_widget(MDLabel(text='''
+        content.add_widget(MDLabel(
+                        text='''
 This application acts as a support for the regulation of 
 the carburetion of internal combustion engines.
 
@@ -126,11 +128,12 @@ Roberta Carlevaris
         pop.bind(on_dismiss=self.check_pop_open)
         aperto=True
         pop.open()
-        return aperto
+        return 
+        
     def check_pop_open(self,istance):
         global aperto
         aperto=False
-        print("orcodio")
+
     def theme_change(self):
         if self.theme_cls.theme_style == "Dark":
             self.theme_cls.theme_style = "Light"
