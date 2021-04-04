@@ -117,7 +117,7 @@ Roberta Carlevaris
                     content=content,
                     auto_dismiss=True,
                     size_hint=(1, 1),
-                    separator_color= [0.7, 0.5, 1, 1],
+                    separator_color= [0.7, 0.5, 1, 0.6],
                     separator_height='5dp',
                     title_align='center',
                     # title_size='14sp',
