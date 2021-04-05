@@ -37,7 +37,7 @@ The instruction manual for perfect carburetion is available at [this address](ht
 
 [Roberta Carlevaris](https://www.instagram.com/robzilla.tattoo/) chief artist and designer
 
-[Alessio Lei] (https://github.com/AlessioLei94) computer consultant.
+[Alessio Lei](https://github.com/AlessioLei94) computer consultant.
 
 [antipatico](https://github.com/antipatico) git wizard and computer master.
 
