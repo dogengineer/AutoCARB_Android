@@ -24,7 +24,7 @@ To learn more about the gasoline efflux coefficient equation that I used in the 
 As for the coefficient used for air, I refer to the model for compressible fluids and sub-critical motion described and demonstrated in the [article](https://journals.sagepub.com/doi/10.1243/JMES_JOUR_1960_002_007_02) by Professor S.L.Bragg of the University of Pittsburgh.
 
 
-## Manuale di Utilizzo
+## User Manual
 
 The instruction manual for perfect carburetion is available at [this address](https://drive.google.com/drive/folders/1Jhl9PxwQLWuTAZI_e3_Zsp0LWXrp-Qie?usp=sharing).
 
