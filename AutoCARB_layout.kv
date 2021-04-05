@@ -1,157 +1,398 @@
 
-Screen: #widget root
-    GridLayout:
-        rows:5
-        MDLabel:
-            id: mdlab
-            halign: "center"
-            text: "Benvenuto su AutoCARB, inserire tutti i dati e premere il pulsante in fondo"
-            # font_style: "H4"
-            padding_x: 30
-            padding_y: 20
-            size_hint_y: None
-            height: self.texture_size[1]
-            text_size: self.width, None
+#:import Clock kivy.clock.Clock
+<ItemDrawer>:
+    # theme_text_color: "Custom"
+    # on_release: self.parent.set_color_item(self)
+
+    # IconLeftWidget:
+    #     id: icon
+    #     icon: root.icon
+        # theme_text_color: "Custom"
+        # text_color: root.text_color
+
+
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: "15dp"
+    spacing: "15dp"
+
+    AnchorLayout:
+        anchor_x: "left"
+        size_hint_y: None
+        height: avatar.height
+
+        Image:
+            id: avatar
+            size_hint: None, None
+            size: "70dp", "70dp"
+            source: "./media/carb_icon.png"
+
+    MDLabel:
+        text: "AutoCARB"
+        #font_style: "Button"
+        size_hint_y: None
+        theme_text_color: "Custom"
+        text_color: 0.7, 0.5, 1, 1
+        height: self.texture_size[1]
+
+    
+    ScrollView:
+        size: self.size
+        MDList:
+            #rows:4
+            #padding: 10
+            # size_hint_y: None
+            # height: self.minimum_height
+            OneLineIconListItem:
+                text: "Link to Manual"
+                theme_text_color: "Custom"
+                text_color: 0.7, 0.5, 1, 1
+                md_bg_color: 255/255, 240/255, 24/255, 0
+                size_hint_x: 1
+                on_release: app.help_button()
+                #on_release: Clock.schedule_once(lambda x: app.help_button(), 1)
+                IconLeftWidget:
+                    icon: "help-circle-outline"
+                    theme_text_color: "Custom"
+                    text_color: 0.7, 0.5, 1, 1
             
-        GridLayout:
-            cols:2
-            rows: 2
-            size_hint_y: None
-            height: self.minimum_height
-            MDLabel:
-                halign: "center"
-                text: "AF"
-                size_hint_y: None
-                height: self.texture_size[1]
-                halign: "center"
+            OneLineIconListItem:               
+                text: "App Theme Toggle"
                 theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                canvas:
-                    Color:
-                        rgba: 1, 0.898, 0.3, 0.5
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
-            MDLabel:
-                halign: "center"
-                text: "Errore"
-                size_hint_y: None
-                height: self.texture_size[1]
-                halign: "center"
+                text_color: 0.7, 0.5, 1, 1
+                md_bg_color: 255/255, 240/255, 24/255, 0
+                size_hint_x: 1
+                on_release: app.theme_change()
+                #on_release: Clock.schedule_once(lambda x: app.theme_change(), 1)
+                IconLeftWidget:
+                    icon: "theme-light-dark"
+                    theme_text_color: "Custom"
+                    text_color: 0.7, 0.5, 1, 1
+            
+            OneLineIconListItem:                
+                text: "Credits"
                 theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-                canvas:
-                    Color:
-                        rgba: 1, 0.898, 0.3, 0.5
+                text_color: 0.7, 0.5, 1, 1
+                md_bg_color: 255/255, 240/255, 24/255, 0
+                size_hint_x: 1
+                #on_release: app.credits_button()
+                on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
+                IconLeftWidget:
+                    icon: "email"
+                    theme_text_color: "Custom"
+                    text_color: 0.7, 0.5, 1, 1
+            
+            OneLineIconListItem:           
+                text: "Link to Licence"
+                theme_text_color: "Custom"
+                text_color: 0.7, 0.5, 1, 1
+                size_hint_x: 1
+                on_release: app.licence_button()
+                #on_release: Clock.schedule_once(lambda x: app.licence_button(), 1)
+                IconLeftWidget:
+                    icon: "license"
+                    theme_text_color: "Custom"
+                    text_color: 0.7, 0.5, 1, 1
+                    
+            # DrawerList:
+            #     id: md_list
 
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
-            MDLabel:
-                id: af
-                halign: "center"
-                text: "14.7"
-                size_hint_y: None
-                height: self.texture_size[1]
-                halign: "center"
-                theme_text_color: "Custom"
-                text_color: 0, 0, 1, 1
-            MDLabel:
-                id: err
-                halign: "center"
-                text: "errore %"
-                size_hint_y: None
-                height: self.texture_size[1]
-                halign: "center"
-                # theme_text_color: "Custom"
-                # text_color: 0, 0, 1, 1
-        
-        GridLayout:
-            id: box
-            rows: 5
-            cols: 3
-            padding: 30
-            MDTextField:
-                id:temp
-                hint_text: "Temp Ambiente [°C]"
-                fill_color: 0, 0, 0, .4
-                text: "20"
-            MDTextField:
-                id:pressione
-                hint_text: "Pressione Ambiente"
-                fill_color: 0, 0, 0, .4
-                text: "101325"
-            MDTextField:
-                id:phi
-                hint_text: "Phi Ambiente"
-                fill_color: 0, 0, 0, .4
-                text: "40"
-            MDTextField:
-                id:dpressione
-                hint_text: "Delta P"
-                fill_color: 0, 0, 0, .4
-                text: "13325"
-            MDTextField:
-                id:d1
-                hint_text: " D1"
-                fill_color: 0, 0, 0, .4
-                text: "42"
-            MDTextField:
-                id:d3
-                hint_text: "D3"
-                fill_color: 0, 0, 0, .4
-                text: "20"
-            MDTextField:
-                id:d2max
-                hint_text: "D2max"
-                fill_color: 0, 0, 0, .4
-                text: "19"
-            MDTextField:
-                id:d2min
-                hint_text: " D2min"
-                fill_color: 0, 0, 0, .4
-                text: "19"
-            MDTextField:
-                id:hc
-                hint_text: "Hc"
-                fill_color: 0, 0, 0, .4
-                text: "17"
-            MDTextField:
-                id:hd
-                hint_text: "Hd"
-                fill_color: 0, 0, 0, .4
-                text: "45"
-            MDTextField:
-                id:dgetto
-                hint_text: "dgetto"
-                fill_color: 0, 0, 0, .4
-                text: "97"
-            MDTextField:
-                id:lcd
-                hint_text: "lcd"
-                fill_color: 0, 0, 0, .4
-                text: "2"
-            # MDTextField:
-            #     id:rapp_af
-            #     hint_text: "rapporto_AF"
-            #     fill_color: 0, 0, 0, .4
-            #     text: "101325"
-            # MDTextField:
-            #     id:errore
-            #     hint_text: "err"
-            #     fill_color: 0, 0, 0, .4
-            #     text: "101325"   
-        
-        ScrollView:
-            SmartTileWithLabel:
-                size_hint: None, None
-                width: "860dp"
-                height: "680dp" 
-                halign: "center"
-                source: "./media/drawing.jpg"
 
-        MDRaisedButton:
-            id: mdbu
-            text: "inizia calcoli"
-            size_hint_x: 1 #da 0 a 1
-            on_press: app.start_button() #funzione da eseguire alla pressione del tasto
+
+Screen:
+    
+    NavigationLayout:
+
+        ScreenManager:
+
+            Screen:
+                   
+                BoxLayout:
+                    orientation: 'vertical'
+                    
+                    MDToolbar:
+                        title: "Navigation Drawer"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.toggle_nav_drawer()]]
+
+                    # Widget:
+                    MDBottomNavigation:
+                        id: btt_layout
+                        panel_color: .2, .2, .2, 1
+
+                        MDBottomNavigationItem:
+                            name: 'screen 1'
+                            text: 'Home'
+                            icon: 'home'
+                        
+                            GridLayout:
+                                rows:5
+                                MDLabel:
+                                    id: mdlab
+                                    halign: "center"
+                                    text: "Press RUN to start the calculations."
+                                    # font_style: "H4"
+                                    padding_x: 30
+                                    padding_y: 20
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    text_size: self.width, None
+                                    theme_text_color: "Custom"
+                                    text_color: 0.7, 0.5, 1, 1
+                                    
+                                GridLayout:
+                                    cols:2
+                                    rows: 2
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    MDLabel:
+                                        halign: "center"
+                                        text: "Air Fuel ratio"
+                                        size_hint_y: None
+                                        height: self.texture_size[1]
+                                        halign: "center"
+                                        theme_text_color: "Custom"
+                                        text_color: 0.7, 0.5, 1, 1
+                                        canvas:
+                                            Color:
+                                                rgba: 0.7, 0.5, 1, 0.2
+                                            Rectangle:
+                                                size: self.size
+                                                pos: self.pos
+                                    MDLabel:
+                                        halign: "center"
+                                        text: "Error"
+                                        size_hint_y: None
+                                        height: self.texture_size[1]
+                                        halign: "center"
+                                        theme_text_color: "Custom"
+                                        text_color: 0.7, 0.5, 1, 1
+                                        canvas:
+                                            Color:
+                                                rgba: 0.7, 0.5, 1, 0.2
+
+                                            Rectangle:
+                                                size: self.size
+                                                pos: self.pos
+                                    MDLabel:
+                                        id: af
+                                        halign: "center"
+                                        text: "-"
+                                        size_hint_y: None
+                                        height: self.texture_size[1]
+                                        halign: "center"
+                                        theme_text_color: "Custom"
+                                        text_color: 0.7, 0.5, 1, 1
+                                    MDLabel:
+                                        id: err
+                                        halign: "center"
+                                        text: "-"
+                                        size_hint_y: None
+                                        height: self.texture_size[1]
+                                        halign: "center"
+                                        theme_text_color: "Custom"
+                                        text_color: 0.7, 0.5, 1, 1
+                                MDLabel:
+                                    id: mixture_label
+                                    text: "Mixture Type"
+                                    halign: "center"
+                                    # font_style: "H4"
+                                    padding_x: 10
+                                    padding_y: 5
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    text_size: self.width, None
+                                    theme_text_color: "Custom"
+                                    text_color: 0.7, 0.5, 1, 1
+                                    canvas:
+                                        Color:
+                                            rgba: 0.7, 0.5, 1, 0.2
+                                        Rectangle:
+                                            size: self.size
+                                            pos: self.pos
+                                ScrollView:
+                                    size: self.size
+                                    
+                                    GridLayout:
+                                        size_hint_y: None
+                                        height: self.minimum_height
+                                        # row_default_height: 20
+                                        id: box
+                                        rows: 14
+                                        cols: 1
+                                        padding: 30
+                                        MDTextField:
+                                            id:temp
+                                            hint_text: "Room Temperature [°C]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "20"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:pressione
+                                            hint_text: "Room Pressure [Pa]"
+                                            #mode: "rectangle"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "101325"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:phi
+                                            hint_text: "Relative humidity [%]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "40"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:dpressione
+                                            hint_text: "\u0394P [Pa]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "13325"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:d1
+                                            hint_text: "d1 [mm]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "42"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:d3
+                                            hint_text: "d3 [mm]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "20"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:d2max
+                                            hint_text: "d2max [mm]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "19"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:d2min
+                                            hint_text: " d2min [mm]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "19"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:hc
+                                            hint_text: "hC [mm]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "17"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:hd
+                                            hint_text: "hD [mm]"
+                                            #mode: "fill"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "45"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:dgetto
+                                            hint_text: "djet [calbrated hole]"
+                                            #mode: "rectangle"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "97"
+                                            halign: "center"
+                                        MDTextField:
+                                            id:lcd
+                                            hint_text: "lCD [mm]"
+                                            #mode: "rectangle"
+                                            fill_color: 0, 0, 0, .4
+                                            text: "2"
+                                            halign: "center"
+                                    
+                                        MDLabel:
+                                            text: "---"
+                                            # halign: "center"
+                                            # padding_x: 10
+                                            padding_y: 350
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            # text_size: self.width, None
+                                            theme_text_color: "Custom"
+                                            text_color: 0.3, 1, 0.2, 0
+                                        MDLabel:
+                                            text: "---"
+                                            # halign: "center"
+                                            # padding_x: 10
+                                            padding_y: 350
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            # text_size: self.width, None
+                                            theme_text_color: "Custom"
+                                            text_color: 0.3, 1, 0.2, 0
+                                    # MDTextField:
+                                    #     id:rapp_af
+                                    #     hint_text: "rapporto_AF"
+                                    #     fill_color: 0, 0, 0, .4
+                                    #     text: "101325"
+                                    # MDTextField:
+                                    #     id:errore
+                                    #     hint_text: "err"
+                                    #     fill_color: 0, 0, 0, .4
+                                    #     text: "101325"   
+                                    # SmartTile:
+                                    #     size_hint: 1, None
+                                    #     width: "860dp"
+                                    #     height: "380dp" 
+                                    #     halign: "center"
+                                    #     source: "./media/drawing.jpg"
+                                    # MDLabel:
+                                    #     id:v1
+                                    # MDLabel:
+                                    #     id:v2
+                                    # MDLabel:
+                                    #     id:v3
+                                    # MDLabel:
+                                    #     id:v4
+                                    # MDLabel:
+                                    #     id:v5
+                                    # MDLabel:
+                                    #     id:v6
+                                    # MDLabel:
+                                    #     id:v7
+                                    # MDLabel:
+                                    #     id:v8
+                                MDRaisedButton:
+                                    id: mdbu
+                                    text: "RUN"
+                                    size_hint_x: 1 #da 0 a 1
+                                    on_press: app.start_button() #funzione da eseguire alla pressione del tasto
+
+
+
+                        MDBottomNavigationItem:
+                            name: 'screen 2'
+                            text: 'Dimensions'
+                            icon: 'image-area'
+
+                            # questo metodo funziona
+                            # Popup:
+                            #     title: 'Carburetor Dimensions'
+                            #     size_hint:(1, 1)
+                            #     separator_color : [0.7, 0.5, 1, 1]
+                            #     separator_height:'5dp'
+                            #     title_align:'center'
+                            #     # title_size='14sp'
+                            #     #  size=(400, 400)
+                            #     Image:
+                            #         source: "./media/drawing.jpg"
+                                    
+                            # questo metodo funziona
+                            BoxLayout:
+                                orientation: 'vertical'
+                                size_hint: (1,1)
+                                Image:
+                                    source: "./media/drawing.jpg"
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                id: content_drawer

@@ -690,3 +690,16 @@ def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, d
 def errore_rapporto_AF(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd):
     AF = rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd)
     return np.abs((AF-14.7)/14.7)*100
+
+def lable_mixture(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd):
+    AF = rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd)
+    if AF < 14.6:
+        mix = "Rich mixture"
+
+    if AF >= 14.6 and AF <= 14.8:
+        mix = "Stoichiometric mixture"
+
+    if AF >= 14.8:
+        mix = "Lean mixture"
+
+    return mix
