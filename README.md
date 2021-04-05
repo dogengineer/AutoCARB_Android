@@ -26,7 +26,7 @@ As for the coefficient used for air, I refer to the model for compressible fluid
 
 ## Manuale di Utilizzo
 
-The instruction manual for perfect carburetion is available at [this address](https://github.com/dogengineer/AutoCARB/blob/main/Manuale_di_AutoCARB.pdf).
+The instruction manual for perfect carburetion is available at [this address](https://drive.google.com/drive/folders/1Jhl9PxwQLWuTAZI_e3_Zsp0LWXrp-Qie?usp=sharing).
 
 
 ## Contributors
