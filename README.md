@@ -42,6 +42,11 @@ The instruction manual for perfect carburetion is available at [this address](ht
 [antipatico](https://github.com/antipatico) git wizard and computer master.
 
 
+## Contacts
+
+app.autocarb@gmail.com
+
+
 ## License
 
 The program is licensed [GPLv3](LICENSE).
