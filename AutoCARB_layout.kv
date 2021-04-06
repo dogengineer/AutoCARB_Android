@@ -75,13 +75,26 @@
                 text_color: 0.7, 0.5, 1, 1
                 md_bg_color: 255/255, 240/255, 24/255, 0
                 size_hint_x: 1
-                #on_release: app.credits_button()
-                on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
+                on_release: app.credits_button()
+                #on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
                 IconLeftWidget:
                     icon: "email"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
             
+            OneLineIconListItem:                
+                text: "Support Developer"
+                theme_text_color: "Custom"
+                text_color: 0.7, 0.5, 1, 1
+                md_bg_color: 255/255, 240/255, 24/255, 0
+                size_hint_x: 1
+                on_release: app.donation_button()
+                #on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
+                IconLeftWidget:
+                    icon: "piggy-bank"
+                    theme_text_color: "Custom"
+                    text_color: 0.7, 0.5, 1, 1
+
             OneLineIconListItem:           
                 text: "Link to Licence"
                 theme_text_color: "Custom"
@@ -93,7 +106,18 @@
                     icon: "license"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
-                    
+
+            OneLineIconListItem:           
+                text: "Link to source code"
+                theme_text_color: "Custom"
+                text_color: 0.7, 0.5, 1, 1
+                size_hint_x: 1
+                on_release: app.code_button()
+                #on_release: Clock.schedule_once(lambda x: app.licence_button(), 1)
+                IconLeftWidget:
+                    icon: "github-circle"
+                    theme_text_color: "Custom"
+                    text_color: 0.7, 0.5, 1, 1        
             # DrawerList:
             #     id: md_list
 

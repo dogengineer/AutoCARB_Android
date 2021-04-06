@@ -33,6 +33,8 @@ from kivy.uix.label import Label
 from kivy.uix.scrollview import ScrollView
 from kivy.properties import ObjectProperty
 
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.dialog import MDDialog
 
 aperto=False #inizializzo "aperto". Serve pe evitare di aprire tanti popup involontariamente (Jacopo non rompere)
 
@@ -82,6 +84,45 @@ class AutoCARB_app(MDApp):
     #         self.root.ids.content_drawer.ids.md_list.add_widget(
     #             ItemDrawer(icon=icon_name, text=icons_item[icon_name])
     #         )
+    
+    #-----------------------Gestione Errori----------------------------------------------------------------#
+    
+    dialog=None
+
+    def dialog_error(self):
+
+        if not self.dialog:
+
+            dialog = MDDialog(
+                #FF5050 B380FF
+                title='[color=BE3636]ERROR[/color]',
+
+                text= 'Invalid input values. Refer to User Manual for more info.', 
+                
+                radius=[20, 20, 20, 20],
+
+                buttons = [
+
+                    MDFlatButton(
+
+                        text="close", text_color=self.theme_cls.primary_color, on_press=lambda x: dialog.dismiss(force=True)
+                    )
+                ]
+            )
+
+        # dialog.bind(on_dismiss=self.close_error) #nel caso in cui si dovesse fare qualcosa alla chiusura
+
+        dialog.open()
+
+    # def close_error(self, *args): #nel caso in cui si dovesse fare qualcosa alla chiusura
+
+    #     dialog.dismiss(force=True)
+
+    #     print("close")
+
+    #---------------------------------------------------------------------------------------------------------------------------------------------
+
+
     # credits = ObjectProperty(None)
     def credits_button(self):
 
@@ -94,15 +135,19 @@ class AutoCARB_app(MDApp):
 This application acts as a support for the regulation of 
 the carburetion of internal combustion engines.
 
-AutoCARB was developed by:
-Davide Maieron (ADD MAIL) and Adriano Mazzola (ADD MAIL) @@@@@@@@@@@@@@@@@ò
+[b]AutoCARB[/b] was developed by:
+Davide Maieron and Adriano Mazzola 
 
 With the collaboration of:
-Alessio Lei and Scorbutico (ADD MAIL)
+Alessio Lei and Scorbutico 
+
 The splash page and the icon are edited by:
 Roberta Carlevaris
+
+Contact: app.autocarb@gmail.com
             ''',
                         padding_x=20,
+                        markup = True,
                         # size_hint=(None, None),
                         # text_size = self.texture_size,
                         # font_style='H6',
@@ -143,24 +188,36 @@ Roberta Carlevaris
             self.root.ids['btt_layout'].panel_color = (.2, .2, .2, 1)
 
     def licence_button(self):
-        webbrowser.open_new('https://github.com/dogengineer/AutoCARB/blob/main/LICENSE')
+        webbrowser.open_new('https://github.com/dogengineer/AutoCARB_Android/blob/main/LICENSE')
+
+    def donation_button(self):
+        webbrowser.open_new('https://www.paypal.com/paypalme/DavideMaieron') 
+
+    def code_button(self):
+        webbrowser.open_new('https://github.com/dogengineer/AutoCARB_Android') 
         
     #################################################################################################     
 
     def start_button(self):
-        AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
-        float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
-        float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
-        float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
-        float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
-        float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
 
-        error = AutoCARB.errore_rapporto_AF(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
-        float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
-        float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
-        float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
-        float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
-        float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
+        try:
+            AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
+            float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
+            float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
+            float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
+            float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
+            float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
+
+            error = AutoCARB.errore_rapporto_AF(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
+            float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
+            float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
+            float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
+            float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
+            float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)        
+        # except (TypeError, IndexError, UnboundLocalError):
+        except:
+            self.dialog_error()
+            return
 
         lable = AutoCARB.lable_mixture(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
         float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
