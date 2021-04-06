@@ -91,7 +91,7 @@
                 on_release: app.donation_button()
                 #on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
                 IconLeftWidget:
-                    icon: "piggy-bank"
+                    icon: "bank"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
 
@@ -245,12 +245,14 @@ Screen:
                                         rows: 14
                                         cols: 1
                                         padding: 30
+
                                         MDTextField:
                                             id:temp
                                             hint_text: "Room Temperature [°C]"
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "20"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:pressione
@@ -258,6 +260,7 @@ Screen:
                                             #mode: "rectangle"
                                             fill_color: 0, 0, 0, .4
                                             text: "101325"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:phi
@@ -265,6 +268,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "40"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:dpressione
@@ -272,6 +276,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "13325"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:d1
@@ -279,6 +284,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "42"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:d3
@@ -286,6 +292,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "20"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:d2max
@@ -293,6 +300,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "19"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:d2min
@@ -300,6 +308,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "19"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:hc
@@ -307,6 +316,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "17"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:hd
@@ -314,6 +324,7 @@ Screen:
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "45"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:dgetto
@@ -321,6 +332,7 @@ Screen:
                                             #mode: "rectangle"
                                             fill_color: 0, 0, 0, .4
                                             text: "97"
+                                            input_filter:'float'
                                             halign: "center"
                                         MDTextField:
                                             id:lcd
@@ -328,6 +340,7 @@ Screen:
                                             #mode: "rectangle"
                                             fill_color: 0, 0, 0, .4
                                             text: "2"
+                                            input_filter:'float'
                                             halign: "center"
                                     
                                         MDLabel:
