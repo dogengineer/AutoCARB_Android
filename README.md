@@ -1,6 +1,10 @@
 # AutoCARB for Android
 
+
+
 ![anteprima](anteprima.png)
+
+
 
 This application verifies the carburation (i.e. air-fuel mixture) by means of an analytical model, which takes into consideration simplifying hypothesis.
 1. Dynamic effects are neglected, assuming stationary airflow and gasoline flow.
