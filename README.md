@@ -52,7 +52,7 @@ app.autocarb@gmail.com
 
 ## Support Developer
 
-If you go to the following [PayPal link](https://www.paypal.com/paypalme/DavideMaieron), you can make a small contribution to help and encourage us to work and develop on AutoCARB.
+If you wish you can follow the [PayPal link](https://www.paypal.com/paypalme/DavideMaieron) and you can make a small contribution to help and encourage us to work and develop on AutoCARB.
 
 
 ## License
