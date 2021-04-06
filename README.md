@@ -49,7 +49,6 @@ app.autocarb@gmail.com
 ## Support Developer
 
 is a small contribution to help and encourage us to work and develop on AutoCARB.
-
 https://www.paypal.com/paypalme/DavideMaieron
 
 
