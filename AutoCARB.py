@@ -5,7 +5,7 @@ class Constants:
     R = 287.05
     k2c = 273.15
     pi = np.pi
-    iterazioni = 1000
+    iterazioni = 200
 
 
 def temperaturaambiente_Kelvin(Tamb):

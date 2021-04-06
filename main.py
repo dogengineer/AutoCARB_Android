@@ -68,7 +68,7 @@ class AutoCARB_app(MDApp):
     
 
     def help_button(self):
-        webbrowser.open_new('https://drive.google.com/drive/folders/1Jhl9PxwQLWuTAZI_e3_Zsp0LWXrp-Qie')
+        webbrowser.open_new('https://drive.google.com/drive/folders/1R0lzU6_zJvO-YX1yDZe_P2RxIkCc_qsJ?usp=sharing')
 
     #################################################################################################
     # def on_start(self):
