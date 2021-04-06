@@ -6,7 +6,6 @@ This application verifies the carburation (i.e. air-fuel mixture) by means of an
 1. Dynamic effects are neglected, assuming stationary airflow and gasoline flow.
    The dynamic effects are given by the periodic intake of fresh charge operated by each
    cylinder and they are present also in conditions of constant speed and load.
-   Gli effetti dinamici sono dati dalla periodica aspirazione di carica fresca operata da       ogni cilindro, il flusso può essere instazionario anche in condizioni di regime e carico    costanti.
 2. In new software version, the hypothesis of incompressible fluid is used only for gasoline, while air is considered as a perfect gas.
 3. Pressure drops and heat exchanges with the walls up to the inlet section of the convergent are neglected.
 4. It considers `Cc<Cd`, which are respectively the input speed and the output speed from the main jet.
@@ -45,6 +44,13 @@ The instruction manual for perfect carburetion is available at [this address](ht
 ## Contacts
 
 app.autocarb@gmail.com
+
+
+## Support Developer
+
+is a small contribution to help and encourage us to work and develop on AutoCARB.
+
+https://www.paypal.com/paypalme/DavideMaieron
 
 
 ## License
