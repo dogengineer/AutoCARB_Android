@@ -97,7 +97,7 @@ class AutoCARB_app(MDApp):
                 #FF5050 B380FF
                 title='[color=BE3636]ERROR[/color]',
 
-                text= 'Invalid input values. Refer to User Manual for more info.', 
+                text= 'Invalid input values. Refer to User Manual for further informations.', 
                 
                 radius=[20, 20, 20, 20],
 
