@@ -117,7 +117,7 @@
                 IconLeftWidget:
                     icon: "github-circle"
                     theme_text_color: "Custom"
-                    text_color: 0.7, 0.5, 1, 1        
+                    text_color: 0.7, 0.5, 1, 1    
             # DrawerList:
             #     id: md_list
 
@@ -138,7 +138,7 @@ Screen:
                         title: "AutoCARB"
                         elevation: 10
                         left_action_items: [['menu', lambda x: nav_drawer.toggle_nav_drawer()]]
-
+                        right_action_items: [['content-save',lambda x: app.save_entries()],['restore',lambda x: app.reset_entries()]]
                     # Widget:
                     MDBottomNavigation:
                         id: btt_layout
@@ -342,7 +342,7 @@ Screen:
                                             text: "2"
                                             input_filter:'float'
                                             halign: "center"
-                                    
+                                        
                                         MDLabel:
                                             text: "---"
                                             # halign: "center"

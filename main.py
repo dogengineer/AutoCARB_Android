@@ -35,6 +35,7 @@ from kivy.properties import ObjectProperty
 
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
+import os
 
 aperto=False #inizializzo "aperto". Serve pe evitare di aprire tanti popup involontariamente (Jacopo non rompere)
 
@@ -84,7 +85,24 @@ class AutoCARB_app(MDApp):
     #         self.root.ids.content_drawer.ids.md_list.add_widget(
     #             ItemDrawer(icon=icon_name, text=icons_item[icon_name])
     #         )
-    
+    def on_start(self):
+        if os.path.exists('inputs_saved.txt'):
+            with open('inputs_saved.txt') as inputs:
+                entries=[line.rstrip() for line in inputs]
+                self.root.ids["temp"].text=entries[0]
+                self.root.ids["pressione"].text=entries[1]
+                self.root.ids["phi"].text=entries[2]
+                self.root.ids["dpressione"].text=entries[3]
+                self.root.ids["d1"].text=entries[4]
+                self.root.ids["d3"].text=entries[5]
+                self.root.ids["d2min"].text=entries[6]
+                self.root.ids["d2max"].text=entries[7]
+                self.root.ids["hc"].text=entries[8]
+                self.root.ids["hd"].text=entries[9]
+                self.root.ids["dgetto"].text=entries[10]
+                self.root.ids["lcd"].text=entries[11]
+
+
     #-----------------------Gestione Errori----------------------------------------------------------------#
     
     dialog=None
@@ -195,7 +213,46 @@ Contact: app.autocarb@gmail.com
 
     def code_button(self):
         webbrowser.open_new('https://github.com/dogengineer/AutoCARB_Android') 
-        
+
+    def reset_entries(self):
+        if os.path.exists('inputs_saved.txt'):
+            os.remove('inputs_saved.txt')
+        # with open('inputs_startup.txt') as inputs:
+        #     entries=[line.rstrip() for line in inputs]
+        self.root.ids["temp"].text="20"
+        self.root.ids["pressione"].text="101325"
+        self.root.ids["phi"].text="40"
+        self.root.ids["dpressione"].text="13325"
+        self.root.ids["d1"].text="42"
+        self.root.ids["d3"].text="20"
+        self.root.ids["d2min"].text="19"
+        self.root.ids["d2max"].text="19"
+        self.root.ids["hc"].text="17"
+        self.root.ids["hd"].text="45"
+        self.root.ids["dgetto"].text="97"
+        self.root.ids["lcd"].text="2"
+       
+    def save_entries(self):
+        if os.path.exists('inputs_saved.txt'):
+            os.remove('inputs_saved.txt')
+
+        entries=list(range(12)) #inizializzo vettore
+
+        entries[0]=self.root.ids["temp"].text
+        entries[1]=self.root.ids["pressione"].text
+        entries[2]=self.root.ids["phi"].text
+        entries[3]=self.root.ids["dpressione"].text
+        entries[4]=self.root.ids["d1"].text
+        entries[5]=self.root.ids["d3"].text
+        entries[6]=self.root.ids["d2min"].text
+        entries[7]=self.root.ids["d2max"].text
+        entries[10]=self.root.ids["dgetto"].text
+        entries[11]=self.root.ids["lcd"].text
+
+        f=open('inputs_saved.txt','w')
+        for item in entries:
+            f.write("%s\n" % item)
+        f.close()
     #################################################################################################     
 
     def start_button(self):
