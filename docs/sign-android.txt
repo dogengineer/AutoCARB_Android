@@ -1,0 +1,30 @@
+Author: Ben Rousch
+Date: 9 dec 2013, 14:13:10
+Site: https://groups.google.com/g/kivy-users/c/5-G7wkbHb_k
+
+In general, the steps are:
+
+1. Generate Keystore (once)
+2. Create Release APK
+3. Sign APK
+4. Zip-align APK
+
+For a specific example of doing a release, here is the setup for my SayThis app:
+
+* My keystore is in ~/keystores
+* My project root is in ~/saythis
+* Which means buildozer.spec is at ~/saythis/buildozer.spec
+* The virtualenv for the project is activated
+
+The specific commands I use to release the SayThis app are:
+
+$ cd ~
+$ keytool -genkey -v -keystore ./keystores/net-clusterbleep-saythis.keystore -alias cb-play -keyalg RSA -keysize 2048 -validity 10000
+$ cd ~/saythis
+$ buildozer android release
+$ cd ~
+$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./keystores/net-clusterbleep-saythis-release.keystore ./saythis/bin/SayThis-1.1.6-release-unsigned.apk cb-play
+$ .buildozer/android/platform/android-sdk-21/tools/zipalign -v 4 ./saythis/bin/SayThis-1.1.6-release-unsigned.apk ./saythis/bin/SayThis.apk
+
+The SayThis.apk is what you upload to Google Play. Please make sure you use your own name for the keystore and APKs.
+

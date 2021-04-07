@@ -25,3 +25,13 @@ pip3 install --user --upgrade Cython==0.29.19 virtualenv  # the --user should be
 7. Buildare il progetto con il comando seguente, per la modalità debug
 
 buildozer android debug
+
+8. Per buildare in modalità release utilizzare il seguente comando
+
+buildozer android release
+
+9. Per impostare una chiave per firmare seguire questa guida: https://groups.google.com/g/kivy-users/c/5-G7wkbHb_k
+
+10. Firmare usando il comando seguente (adattato in base a dove si hanno i file)
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./keystores/net-clusterbleep-saythis-release.keystore ./saythis/bin/SayThis-1.1.6-release-unsigned.apk cb-play
