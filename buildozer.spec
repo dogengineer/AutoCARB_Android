@@ -4,10 +4,10 @@
 title = AutoCARB
 
 # (str) Package name
-package.name = myapp
+package.name = autocarb
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = com.github.dogengineer
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -27,7 +27,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 3.2.7
+version = 0.0.1
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -89,7 +89,7 @@ fullscreen = 0
 #android.permissions = INTERNET
 
 # (int) Target Android API, should be as high as possible.
-#android.api = 27
+android.api = 29
 
 # (int) Minimum API your APK will support.
 #android.minapi = 21
