@@ -16,24 +16,39 @@
     padding: "15dp"
     spacing: "15dp"
 
-    AnchorLayout:
-        anchor_x: "left"
-        size_hint_y: None
-        height: avatar.height
+    GridLayout:
+        cols:2
+        size_hint_y: .15
+        
+        AnchorLayout:
+            anchor_x: "left"
+            anchor_y: "center"
+            size_hint_y: None
+            size_hint_x: .7
+            height: avatar.height
 
-        Image:
-            id: avatar
-            size_hint: None, None
-            size: "70dp", "70dp"
-            source: "./media/carb_icon.png"
+            Image:
+                id: avatar
+                size_hint: None, None
+                size: "80dp", "80dp"
+                source: "./media/carb_icon.png"
 
-    MDLabel:
-        text: "AutoCARB"
-        #font_style: "Button"
-        size_hint_y: None
-        theme_text_color: "Custom"
-        text_color: 0.7, 0.5, 1, 1
-        height: self.texture_size[1]
+        AnchorLayout:
+            anchor_x: "left"
+            anchor_y: "bottom"
+            size_hint_y: None
+            # size_hint_x: None
+            height: avatar.height
+
+            MDLabel:
+                text: "AutoCARB"
+                font_style: "H5"
+                # size_hint_y: None
+                theme_text_color: "Custom"
+                text_color: 0.7, 0.5, 1, 1
+                # height: self.texture_size[1]
+                # padding: (0,10)
+
 
     
     ScrollView:
@@ -55,6 +70,7 @@
                     icon: "help-circle-outline"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
+                    
             
             OneLineIconListItem:               
                 text: "App Theme Toggle"
@@ -68,6 +84,7 @@
                     icon: "theme-light-dark"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
+                    
             
             OneLineIconListItem:                
                 text: "Credits"
@@ -151,24 +168,25 @@ Screen:
                         
                             GridLayout:
                                 rows:5
-                                MDLabel:
-                                    id: mdlab
-                                    halign: "center"
-                                    text: "Press RUN to start the calculations."
-                                    # font_style: "H4"
-                                    padding_x: 30
-                                    padding_y: 20
-                                    size_hint_y: None
-                                    height: self.texture_size[1]
-                                    text_size: self.width, None
-                                    theme_text_color: "Custom"
-                                    text_color: 0.7, 0.5, 1, 1
+                                # MDLabel:
+                                #     id: mdlab
+                                #     halign: "center"
+                                #     text: "Press RUN to start the calculations."
+                                #     # font_style: "H4"
+                                #     padding_x: 30
+                                #     padding_y: 20
+                                #     size_hint_y: None
+                                #     height: self.texture_size[1]
+                                #     text_size: self.width, None
+                                #     theme_text_color: "Custom"
+                                #     text_color: 0.7, 0.5, 1, 1
                                     
                                 GridLayout:
                                     cols:2
                                     rows: 2
                                     size_hint_y: None
                                     height: self.minimum_height
+                                    padding: 0,20
                                     MDLabel:
                                         halign: "center"
                                         text: "Air Fuel ratio"
@@ -220,7 +238,7 @@ Screen:
                                     id: mixture_label
                                     text: "Mixture Type"
                                     halign: "center"
-                                    # font_style: "H4"
+                                    font_style: "H6"
                                     padding_x: 10
                                     padding_y: 5
                                     size_hint_y: None
@@ -234,6 +252,13 @@ Screen:
                                         Rectangle:
                                             size: self.size
                                             pos: self.pos
+                                MDLabel: #just to have some space between "mixture type" and inputs
+                                    text: "---"
+                                    padding_y: 5
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    theme_text_color: "Custom"
+                                    text_color: 0.3, 1, 0.2, 0
                                 ScrollView:
                                     size: self.size
                                     
@@ -347,7 +372,7 @@ Screen:
                                             text: "---"
                                             # halign: "center"
                                             # padding_x: 10
-                                            padding_y: 350
+                                            padding_y: 150
                                             size_hint_y: None
                                             height: self.texture_size[1]
                                             # text_size: self.width, None
@@ -357,7 +382,7 @@ Screen:
                                             text: "---"
                                             # halign: "center"
                                             # padding_x: 10
-                                            padding_y: 350
+                                            padding_y: 150
                                             size_hint_y: None
                                             height: self.texture_size[1]
                                             # text_size: self.width, None

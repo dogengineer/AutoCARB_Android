@@ -123,7 +123,7 @@ class AutoCARB_app(MDApp):
 
                     MDFlatButton(
 
-                        text="close", text_color=self.theme_cls.primary_color, on_press=lambda x: dialog.dismiss(force=True)
+                        text="Close", text_color=self.theme_cls.primary_color, on_press=lambda x: dialog.dismiss(force=True)
                     )
                 ]
             )
@@ -157,7 +157,7 @@ the carburetion of internal combustion engines.
 Davide Maieron and Adriano Mazzola 
 
 With the collaboration of:
-Alessio Lei and Scorbutico 
+Antipatico and Alessio Lei
 
 The splash page and the icon are edited by:
 Roberta Carlevaris
