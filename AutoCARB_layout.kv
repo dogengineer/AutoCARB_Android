@@ -70,6 +70,7 @@
                     icon: "help-circle-outline"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
+                    on_release: app.help_button()
                     
             
             OneLineIconListItem:               
@@ -84,6 +85,7 @@
                     icon: "theme-light-dark"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
+                    on_release: app.theme_change()
                     
             
             OneLineIconListItem:                
@@ -98,6 +100,7 @@
                     icon: "email"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
+                    on_release: app.credits_button()
             
             OneLineIconListItem:                
                 text: "Support Developer"
@@ -111,6 +114,7 @@
                     icon: "bank"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
+                    on_release: app.donation_button()
 
             OneLineIconListItem:           
                 text: "Link to Licence"
@@ -123,6 +127,7 @@
                     icon: "license"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
+                    on_release: app.licence_button()
 
             OneLineIconListItem:           
                 text: "Link to source code"
@@ -134,7 +139,8 @@
                 IconLeftWidget:
                     icon: "github-circle"
                     theme_text_color: "Custom"
-                    text_color: 0.7, 0.5, 1, 1    
+                    text_color: 0.7, 0.5, 1, 1   
+                    on_release: app.code_button() 
             # DrawerList:
             #     id: md_list
 
