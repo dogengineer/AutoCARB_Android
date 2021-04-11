@@ -36,11 +36,11 @@ The instruction manual for perfect carburetion is available at [this address](ht
 
 ![Android interface](screen.png)
 
-The AutoCARB interface is mainly structured by a home, in which you can find:
-1. In the center, the inputs that you will have to enter to start the calculations.
-2. At the bottom right the button that will take you to the screen where the image with all dimensions is located.
-3. At the top right are the buttons that you can use for saving and restoring inputs.
-4. At the top left you will find the menu, where you can access the manual, the contacts, the paypal link to support us and the button to change the application theme.
+The AutoCARB homepage is structured such as:
+1. In the center, you can find the inputs that you will have to enter to start the calculations.
+2. In the right corner you can find a button that brings you to the image containing all the dimensions required.
+3. In the top right corner you can find the buttons to save and restore all the inputs.
+4. In the top left corner you will find the menu, where you can access the manual, the contacts, the paypal link to support us and the button to change the application theme.
 
 
 ## Contributors
