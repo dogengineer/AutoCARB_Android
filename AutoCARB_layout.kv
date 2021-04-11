@@ -265,8 +265,11 @@ Screen:
                                     height: self.texture_size[1]
                                     theme_text_color: "Custom"
                                     text_color: 0.3, 1, 0.2, 0
-                                ScrollView:
+                                MDScrollViewRefreshLayout:
+                                    id: refresh
                                     size: self.size
+                                    refresh_callback: app.refresh_callback
+                                    root_layout: root
                                     
                                     GridLayout:
                                         size_hint_y: None
@@ -280,6 +283,10 @@ Screen:
                                         MDTextField:
                                             id:temp
                                             hint_text: "Room Temperature [°C]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "20"
@@ -288,6 +295,10 @@ Screen:
                                         MDTextField:
                                             id:pressione
                                             hint_text: "Room Pressure [Pa]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "rectangle"
                                             fill_color: 0, 0, 0, .4
                                             text: "101325"
@@ -296,6 +307,10 @@ Screen:
                                         MDTextField:
                                             id:phi
                                             hint_text: "Relative humidity [%]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "40"
@@ -304,6 +319,10 @@ Screen:
                                         MDTextField:
                                             id:dpressione
                                             hint_text: "\u0394P [Pa]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "13325"
@@ -312,6 +331,10 @@ Screen:
                                         MDTextField:
                                             id:d1
                                             hint_text: "d1 [mm]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "42"
@@ -320,6 +343,10 @@ Screen:
                                         MDTextField:
                                             id:d3
                                             hint_text: "d3 [mm]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "20"
@@ -328,6 +355,10 @@ Screen:
                                         MDTextField:
                                             id:d2max
                                             hint_text: "d2max [mm]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "19"
@@ -336,6 +367,10 @@ Screen:
                                         MDTextField:
                                             id:d2min
                                             hint_text: " d2min [mm]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "19"
@@ -344,6 +379,10 @@ Screen:
                                         MDTextField:
                                             id:hc
                                             hint_text: "hC [mm]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "17"
@@ -352,6 +391,10 @@ Screen:
                                         MDTextField:
                                             id:hd
                                             hint_text: "hD [mm]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "fill"
                                             fill_color: 0, 0, 0, .4
                                             text: "45"
@@ -360,6 +403,10 @@ Screen:
                                         MDTextField:
                                             id:dgetto
                                             hint_text: "djet [calbrated hole]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "rectangle"
                                             fill_color: 0, 0, 0, .4
                                             text: "97"
@@ -368,6 +415,10 @@ Screen:
                                         MDTextField:
                                             id:lcd
                                             hint_text: "lCD [mm]"
+                                            multiline: False
+                                            max_text_length: 9
+                                            helper_text_mode: 'on_error'
+                                            helper_text: 'max n° of digits = 9'
                                             #mode: "rectangle"
                                             fill_color: 0, 0, 0, .4
                                             text: "2"
@@ -453,9 +504,11 @@ Screen:
                                     
                             # questo metodo funziona
                             BoxLayout:
+                                
                                 orientation: 'vertical'
                                 size_hint: (1,1)
                                 Image:
+                                    id:img_drawing
                                     source: "./media/drawing.jpg"
 
 

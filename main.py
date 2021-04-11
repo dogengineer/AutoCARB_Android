@@ -55,9 +55,27 @@ class ContentNavigationDrawer(BoxLayout):
 #                 break
 #         instance_item.text_color = self.theme_cls.primary_color
 #################################################################################################
+# from kivy.uix.textinput import TextInput
+# class LimitInput(TextInput):
+#     def insert_text(self, substring, from_undo=False):
+#         if not self.filled:
+#             return super(IdeaInput, self).insert_text(substring, from_undo=from_undo)
+            
 
+    # def on_text(self, instance, value):
+    #     if len(self.text.strip()) >= 6:
+    #         self.readonly = False
+
+from kivy.clock import Clock
 
 class AutoCARB_app(MDApp):
+    def refresh_callback(self, *args):
+        
+        def refresh_callback(interval): #fake refresh
+            self.start_button()
+            self.root.ids['refresh'].refresh_done()
+
+        Clock.schedule_once(refresh_callback,0)
 
 
     def build(self):
@@ -201,9 +219,11 @@ Contact: app.autocarb@gmail.com
         if self.theme_cls.theme_style == "Dark":
             self.theme_cls.theme_style = "Light"
             self.root.ids['btt_layout'].panel_color = (255/255, 255/255, 255/255, 1)
+            self.root.ids['img_drawing'].source = "./media/drawing_light.jpg"
         else:
             self.theme_cls.theme_style = "Dark"
             self.root.ids['btt_layout'].panel_color = (.2, .2, .2, 1)
+            self.root.ids['img_drawing'].source = "./media/drawing.jpg"
 
     def licence_button(self):
         webbrowser.open_new('https://github.com/dogengineer/AutoCARB_Android/blob/main/LICENSE')
