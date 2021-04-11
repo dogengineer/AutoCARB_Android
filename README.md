@@ -32,6 +32,11 @@ As for the coefficient used for air, I refer to the model for compressible fluid
 The instruction manual for perfect carburetion is available at [this address](https://drive.google.com/drive/folders/1R0lzU6_zJvO-YX1yDZe_P2RxIkCc_qsJ?usp=sharing).
 
 
+## Interface
+
+![Android interface](screen.png)
+
+
 ## Contributors
 
 [Ing. Davide Maieron](https://www.linkedin.com/in/davide-maieron-3757851bb/) lead programmer and engineer.
