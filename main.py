@@ -321,6 +321,13 @@ Contact: app.autocarb@gmail.com
             float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
             float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)        
         # except (TypeError, IndexError, UnboundLocalError):
+
+            lable = AutoCARB.label_mixture(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
+                float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
+                float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
+                float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
+                float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
+                float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
         except:
             self.dialog_error(1,'Invalid input values.') 
             #the error window is shown in the case of any general error of the program 
@@ -332,6 +339,10 @@ The temperature value is too high and generates a bad interpolation in the absol
 To avoid errors, when the ambient temperature is above 50 °C, the humidity value will be considered as zero.'''
             )
         
+        if float(self.root.ids["phi"].text)>100:
+            self.dialog_error(1,'Relative humidity value cannot be higher than 100%.')
+            return
+
         if AutoCARB.NumeroMach(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
             float(self.root.ids["dpressione"].text),float(self.root.ids["d3"].text)*1e-3,
             float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3)>=1:
@@ -340,14 +351,7 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
         
         if float(self.root.ids["temp"].text)==50:
             self.easter_egg() #####easter_egg
-
-        lable = AutoCARB.lable_mixture(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
-        float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
-        float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
-        float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
-        float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
-        float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
-
+     
         self.root.ids["af"].text = str(np.round(AF, decimals = 2))
         self.root.ids["err"].text = str(str(np.round(error, decimals = 2))+' %')
 
