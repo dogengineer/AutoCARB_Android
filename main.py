@@ -125,7 +125,7 @@ class AutoCARB_app(MDApp):
     
     dialog=None
 
-    def dialog_error(self,shown_text):
+    def dialog_error(self,type,shown_text):
 
         if not self.dialog:
 
@@ -145,6 +145,10 @@ class AutoCARB_app(MDApp):
                     )
                 ]
             )
+            if type==1:
+                dialog.title = '[color=BE3636]ERROR[/color]'
+            if type==2:
+                dialog.title = '[color=ff8c00]WARNING[/color]'
 
         # dialog.bind(on_dismiss=self.close_error) #nel caso in cui si dovesse fare qualcosa alla chiusura
 
@@ -277,7 +281,7 @@ Contact: app.autocarb@gmail.com
 
     def start_button(self):
         if float(self.root.ids["temp"].text)>50:
-            self.dialog_error('''
+            self.dialog_error(2,'''
 The temperature value is too high and
 generates a bad interplation in the absolute humidity calculations.
 To avoid errors, when the ambient temperature of 50 ° C the humidity value will be considered zero.'''
@@ -298,7 +302,7 @@ To avoid errors, when the ambient temperature of 50 ° C the humidity value will
             float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)        
         # except (TypeError, IndexError, UnboundLocalError):
         except:
-            self.dialog_error('Invalid input values. Refer to User Manual for further informations.')
+            self.dialog_error(1,'Invalid input values. Refer to User Manual for further informations.')
             return
 
         lable = AutoCARB.lable_mixture(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
