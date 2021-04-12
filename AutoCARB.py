@@ -85,7 +85,8 @@ def UmiditAssoluta(Tamb,pamb,phi):
     Returns:
         Umidità assoluta
     """
-
+    if Tamb>50:
+        return 0 #this passage is needed to solve an interpolation error
     psat = ( 0.006228+0.000782638*Tamb-0.000181025*Tamb**2+0.0000479501*Tamb**3-0.0000064238*Tamb**4+0.000000538869*Tamb**5-0.0000000297812*Tamb**6+0.00000000111524*Tamb**7-0.000000000028466*Tamb**8+0.000000000000487735*Tamb**9-5.36485E-015*Tamb**10+3.42159E-017*Tamb**11-9.61488E-020*Tamb**12)*98100
     #pressione parziale del vapore nel miscuglio
     PvapMisc=(phi*psat)/100

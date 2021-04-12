@@ -72,7 +72,7 @@ class AutoCARB_app(MDApp):
     def refresh_callback(self, *args):
         
         def refresh_callback(interval): #fake refresh
-            self.start_button()
+            # self.start_button()
             self.root.ids['refresh'].refresh_done()
 
         Clock.schedule_once(refresh_callback,0)
@@ -280,7 +280,7 @@ Contact: app.autocarb@gmail.com
             self.dialog_error('''
 The temperature value is too high and
 generates a bad interplation in the absolute humidity calculations.
-To avoid errors, in addition to the ambient temperature of 50 ° C, the humidity value will be considered zero.'''
+To avoid errors, when the ambient temperature of 50 ° C the humidity value will be considered zero.'''
             )
         try:
             AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
