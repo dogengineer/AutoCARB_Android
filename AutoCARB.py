@@ -241,7 +241,6 @@ def NumeroMach(Tamb,pamb,deltap,d3,d2max,d2min):
     k = RapportoCaloreAria(T2t)
     Cs = np.sqrt(k*Constants.R*T2t)
     cDuet = velocitaTeoricaSez2(Tamb,pamb,deltap,d3,d2max,d2min)
-    
     return cDuet/Cs            
         
 

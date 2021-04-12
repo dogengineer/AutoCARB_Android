@@ -126,6 +126,10 @@ class AutoCARB_app(MDApp):
     dialog=None
 
     def dialog_error(self,type,shown_text):
+        '''
+        First argument: 1 for ERROR, 2 for WARNING
+
+        Second argument: text shown in the popup'''
 
         if not self.dialog:
 
@@ -214,7 +218,29 @@ Contact: app.autocarb@gmail.com
         aperto=True
         pop.open()
         return 
-        
+
+    def easter_egg(self):
+        global aperto
+        if aperto == True:
+            return
+        content = GridLayout(rows=2)
+        content.add_widget(Image(source='./media/hot_af.jpg')
+                        )
+        pop = Popup(title='Even the beans are too HOT!',
+                    content=content,
+                    auto_dismiss=True,
+                    size_hint=(.8, .8),
+                    separator_color= [0.7, 0.5, 1, 0.6],
+                    separator_height='1dp',
+                    title_align='center',
+                    # title_size='14sp',
+                    #  size=(400, 400)
+                     )
+        pop.bind(on_dismiss=self.check_pop_open)
+        aperto=True
+        pop.open()
+        return     
+    
     def check_pop_open(self,istance):
         global aperto
         aperto=False
@@ -280,12 +306,6 @@ Contact: app.autocarb@gmail.com
     #################################################################################################     
 
     def start_button(self):
-        if float(self.root.ids["temp"].text)>50:
-            self.dialog_error(2,'''
-The temperature value is too high and
-generates a bad interplation in the absolute humidity calculations.
-To avoid errors, when the ambient temperature of 50 ° C the humidity value will be considered zero.'''
-            )
         try:
             AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
             float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
@@ -302,8 +322,24 @@ To avoid errors, when the ambient temperature of 50 ° C the humidity value will
             float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)        
         # except (TypeError, IndexError, UnboundLocalError):
         except:
-            self.dialog_error(1,'Invalid input values. Refer to User Manual for further informations.')
+            self.dialog_error(1,'Invalid input values.') 
+            #the error window is shown in the case of any general error of the program 
             return
+        
+        if float(self.root.ids["temp"].text)>50:
+            self.dialog_error(2,'''
+The temperature value is too high and generates a bad interpolation in the absolute humidity calculations.
+To avoid errors, when the ambient temperature is above 50 °C, the humidity value will be considered as zero.'''
+            )
+        
+        if AutoCARB.NumeroMach(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
+            float(self.root.ids["dpressione"].text),float(self.root.ids["d3"].text)*1e-3,
+            float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3)>=1:
+
+            self.dialog_error(2,'The following result cannot be considered acceptable due to sonic or ultrasonic conditions in the Venuturi pipe.')
+        
+        if float(self.root.ids["temp"].text)==50:
+            self.easter_egg() #####easter_egg
 
         lable = AutoCARB.lable_mixture(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
         float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
