@@ -229,7 +229,7 @@ Contact: app.autocarb@gmail.com
         pop = Popup(title='Even the beans are too HOT!',
                     content=content,
                     auto_dismiss=True,
-                    size_hint=(.8, .8),
+                    size_hint=(.9, .45),
                     separator_color= [0.7, 0.5, 1, 0.6],
                     separator_height='1dp',
                     title_align='center',
