@@ -1,4 +1,5 @@
 import numpy as np
+from enum import Enum
 
 class Constants:
     g = 9.80655  
@@ -6,6 +7,14 @@ class Constants:
     k2c = 273.15
     pi = np.pi
     iterazioni = 200
+
+class MixtureType(Enum):
+    Rich = 0
+    Stoichiometric = 1
+    Lean = 2
+
+    def __str__(self):
+        return f"{self.name} mixture"
 
 
 def temperaturaambiente_Kelvin(Tamb):
@@ -683,23 +692,20 @@ def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, d
     """
     portataA = portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, r_n0 = 1)
     portataB = portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd)
-        
-    return portataA / portataB
+    AF = portataA / portataB
+    errore = errore_rapporto_AF(AF)
+    tipo_miscela = tipo_miscela_AF(AF)
+    return (portataA / portataB, errore, tipo_miscela)
 
 
-def errore_rapporto_AF(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd):
-    AF = rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd)
+def errore_rapporto_AF(AF):
     return np.abs((AF-14.7)/14.7)*100
 
-def label_mixture(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd):
-    AF = rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd)
+
+def tipo_miscela_AF(AF):
     if AF < 14.6:
-        mix = "Rich mixture"
-
+        return MixtureType.Rich
     if AF >= 14.6 and AF <= 14.8:
-        mix = "Stoichiometric mixture"
-
+        return MixtureType.Stoichiometric
     if AF >= 14.8:
-        mix = "Lean mixture"
-
-    return mix
+        return MixtureType.Lean

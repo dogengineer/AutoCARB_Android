@@ -2,27 +2,16 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.label import MDLabel
 
-# from kivy.core.window import Window
-# # Window.softinput_mode = 'pan'
-# Window.size = (400,300)
-
 import AutoCARB
+from AutoCARB import MixtureType
 import numpy as np
 import webbrowser
 
-# from kivy.metrics import dp
-# from kivymd.uix.menu import MDDropdownMenu
-
-# Builder.load_file('credits.kv') # serve per importare il file *.kv
 
 
 
 #################################################################################################
 from kivy.uix.boxlayout import BoxLayout
-# from kivy.properties import StringProperty, ListProperty
-
-# from kivymd.theming import ThemableBehavior
-# from kivymd.uix.list import OneLineIconListItem, MDList
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
 
@@ -41,30 +30,6 @@ aperto=False #inizializzo "aperto". Serve pe evitare di aprire tanti popup invol
 
 class ContentNavigationDrawer(BoxLayout):
     pass
-# class ItemDrawer(OneLineIconListItem):
-    # icon = StringProperty()
-    # text_color = ListProperty((1, 1, 1, 1))
-# class DrawerList(ThemableBehavior, MDList):
-#     def set_color_item(self, instance_item):
-#         """Called when tap on a menu item."""
-
-#         # Set the color of the icon and text for the menu item.
-#         for item in self.children:
-#             if item.text_color == self.theme_cls.primary_color:
-#                 item.text_color = self.theme_cls.text_color
-#                 break
-#         instance_item.text_color = self.theme_cls.primary_color
-#################################################################################################
-# from kivy.uix.textinput import TextInput
-# class LimitInput(TextInput):
-#     def insert_text(self, substring, from_undo=False):
-#         if not self.filled:
-#             return super(IdeaInput, self).insert_text(substring, from_undo=from_undo)
-            
-
-    # def on_text(self, instance, value):
-    #     if len(self.text.strip()) >= 6:
-    #         self.readonly = False
 
 from kivy.clock import Clock
 
@@ -72,7 +37,6 @@ class AutoCARB_app(MDApp):
     def refresh_callback(self, *args):
         
         def refresh_callback(interval): #fake refresh
-            # self.start_button()
             self.root.ids['refresh'].refresh_done()
 
         Clock.schedule_once(refresh_callback,0)
@@ -88,21 +52,8 @@ class AutoCARB_app(MDApp):
 
     def help_button(self):
         webbrowser.open_new('https://drive.google.com/drive/folders/1R0lzU6_zJvO-YX1yDZe_P2RxIkCc_qsJ?usp=sharing')
-
-    #################################################################################################
-    # def on_start(self):
-    #     icons_item = {
-    #         "folder": "My files",
-    #         "account-multiple": "Shared with me",
-    #         "star": "Starred",
-    #         "history": "Recent",
-    #         "checkbox-marked": "Shared with me",
-    #         "upload": "Upload",
-    #     }
-    #     for icon_name in icons_item.keys():
-    #         self.root.ids.content_drawer.ids.md_list.add_widget(
-    #             ItemDrawer(icon=icon_name, text=icons_item[icon_name])
-    #         )
+    
+    
     def on_start(self):
         if os.path.exists('inputs_saved.txt'):
             with open('inputs_saved.txt') as inputs:
@@ -125,26 +76,19 @@ class AutoCARB_app(MDApp):
     
     dialog=None
 
-    def dialog_error(self,type,shown_text):
+    def dialog_error(self,type,message):
         '''
-        First argument: 1 for ERROR, 2 for WARNING
-
-        Second argument: text shown in the popup'''
-
-        if not self.dialog:
-
+        Arguments:
+            type: 1 for ERROR, 2 for WARNING
+            message: text shown in the popup
+        '''
+        if self.dialog is None:
             dialog = MDDialog(
-                #FF5050 B380FF
                 title='[color=BE3636]ERROR[/color]',
-                text=shown_text,
-                # text= 'Invalid input values. Refer to User Manual for further informations.', 
-                
+                text=message,
                 radius=[20, 20, 20, 20],
-
                 buttons = [
-
                     MDFlatButton(
-
                         text="Close", text_color=self.theme_cls.primary_color, on_press=lambda x: dialog.dismiss(force=True)
                     )
                 ]
@@ -153,23 +97,9 @@ class AutoCARB_app(MDApp):
                 dialog.title = '[color=BE3636]ERROR[/color]'
             if type==2:
                 dialog.title = '[color=ff8c00]WARNING[/color]'
-
-        # dialog.bind(on_dismiss=self.close_error) #nel caso in cui si dovesse fare qualcosa alla chiusura
-
         dialog.open()
 
-    # def close_error(self, *args): #nel caso in cui si dovesse fare qualcosa alla chiusura
-
-    #     dialog.dismiss(force=True)
-
-    #     print("close")
-
-    #---------------------------------------------------------------------------------------------------------------------------------------------
-
-
-    # credits = ObjectProperty(None)
     def credits_button(self):
-
         global aperto
         if aperto == True:
             return
@@ -192,9 +122,6 @@ Contact: app.autocarb@gmail.com
             ''',
                         padding_x=20,
                         markup = True,
-                        # size_hint=(None, None),
-                        # text_size = self.texture_size,
-                        # font_style='H6',
                         theme_text_color="Custom",
                         text_color=( 0.7, 0.5, 1, 1))
                         )
@@ -209,11 +136,8 @@ Contact: app.autocarb@gmail.com
                     separator_color= [0.7, 0.5, 1, 0.6],
                     separator_height='5dp',
                     title_align='center',
-                    # title_size='14sp',
-                    #  size=(400, 400)
                      )
         btn.bind(on_press=pop.dismiss)
-        # btn.bind(on_press=self.check_pop_open)
         pop.bind(on_dismiss=self.check_pop_open)
         aperto=True
         pop.open()
@@ -233,8 +157,6 @@ Contact: app.autocarb@gmail.com
                     separator_color= [0.7, 0.5, 1, 0.6],
                     separator_height='1dp',
                     title_align='center',
-                    # title_size='14sp',
-                    #  size=(400, 400)
                      )
         pop.bind(on_dismiss=self.check_pop_open)
         aperto=True
@@ -267,8 +189,6 @@ Contact: app.autocarb@gmail.com
     def reset_entries(self):
         if os.path.exists('inputs_saved.txt'):
             os.remove('inputs_saved.txt')
-        # with open('inputs_startup.txt') as inputs:
-        #     entries=[line.rstrip() for line in inputs]
         self.root.ids["temp"].text="20"
         self.root.ids["pressione"].text="101325"
         self.root.ids["phi"].text="40"
@@ -305,33 +225,47 @@ Contact: app.autocarb@gmail.com
         f.close()
     #################################################################################################     
 
+    def parse_args(self):
+        # Usiamo un dizionario e un ciclo per evitare di dover ripetere il codice.
+        user_inputs = ["temp", "pressione", "phi", "dpressione", "d1", "d3", "d2max", "d2min", "d2max", "hc", "hd", "dgetto", "lcd"]
+        args = dict() # Creo un dizionario, una struttura dati che dato un valore di chiave, ritorna un valore associato.
+        for k in user_inputs:
+            args[k] = float(self.root.ids[k].text) # Popolo il dizionario con i valori inseriti dall'utente
+        return args
+            
+
     def start_button(self):
         try:
-            AF = AutoCARB.rapporto_aria_benzina(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
-            float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
-            float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
-            float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
-            float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
-            float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
+            args = self.parse_args()
+            for k in ["d1", "d3", "d2max", "d2min", "hc", "hd", "lcd"]:
+                args[k] *= 1e-3 # Converto i valori all'interno del dizionario, moltiplicandoli per 0.0001
+            args["dgetto"] *= 1e-5 # Questo è per 0.000001
 
-            error = AutoCARB.errore_rapporto_AF(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
-            float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
-            float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
-            float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
-            float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
-            float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)        
-        # except (TypeError, IndexError, UnboundLocalError):
+            # La prossima funzione torna 3 valori, e quindi salvo il risultato
+            # in 3 variabili diverse. Per approfondire, cercare "tuple python"
+            # Questo ci permette non solo di calcolare più volte il rapporto AF,
+            # ma anche di scrivere meno codice / codice più elegante.
+            AF, error, mixture_type = AutoCARB.rapporto_aria_benzina(args["temp"], args["pressione"], args["phi"],
+                        args["dpressione"], args["d1"], args["d3"], args["d2max"], args["d2min"],
+                        args["hc"], args["hd"], args["dgetto"], args["lcd"])               
+                
+#         except TemperatureError:
+#             self.dialog_error(2,'''
+# The temperature value is too high and generates a bad interpolation in the absolute humidity calculations.
+# To avoid errors, when the ambient temperature is above 50 °C, the humidity value will be considered as zero.'''
+#             )
+        
+#         except MachError:
+#             self.dialog_error(2,'''
+# The following result cannot be considered acceptable due to sonic or ultrasonic conditions in the Venuturi pipe.'''
+#             )
 
-            lable = AutoCARB.label_mixture(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
-                float(self.root.ids["phi"].text), float(self.root.ids["dpressione"].text),
-                float(self.root.ids["d1"].text)*1e-3, float(self.root.ids["d3"].text)*1e-3,
-                float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3,
-                float(self.root.ids["hc"].text)*1e-3,float(self.root.ids["hd"].text)*1e-3,
-                float(self.root.ids["dgetto"].text)*1e-5, float(self.root.ids["lcd"].text)*1e-3)
         except:
             self.dialog_error(1,'Invalid input values.') 
             #the error window is shown in the case of any general error of the program 
             return
+
+
         
         if float(self.root.ids["temp"].text)>50:
             self.dialog_error(2,'''
@@ -355,13 +289,11 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
         self.root.ids["af"].text = str(np.round(AF, decimals = 2))
         self.root.ids["err"].text = str(str(np.round(error, decimals = 2))+' %')
 
-        self.root.ids["mixture_label"].text = lable
-        if lable == "Rich mixture":
-            self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)     
-        if lable == "Stoichiometric mixture":
-            self.root.ids["mixture_label"].text_color = (51/255, 153/255, 51/255, 1)     
-        if lable == "Lean mixture":
-            self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)   
+        self.root.ids["mixture_label"].text = str(mixture_type)
+        if mixture_type == MixtureType.Rich or mixture_type == MixtureType.Lean:
+            self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)
+        if mixture_type == MixtureType.Stoichiometric:
+            self.root.ids["mixture_label"].text_color = (51/255, 153/255, 51/255, 1)
              
 
 
