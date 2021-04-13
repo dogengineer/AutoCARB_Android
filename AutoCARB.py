@@ -1,5 +1,6 @@
-import numpy as np
 from enum import Enum
+import numpy as np
+from AutoCARBErrors import *
 
 class Constants:
     g = 9.80655  
@@ -690,6 +691,9 @@ def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, d
     Returns:
         coefficiente di attrito
     """
+    # if NumeroMach(...) > 1:
+    #     raise MachError()
+    
     portataA = portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, r_n0 = 1)
     portataB = portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd)
     AF = portataA / portataB

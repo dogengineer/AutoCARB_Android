@@ -1,32 +1,29 @@
+import os
+import webbrowser
+from enum import Enum
+import numpy as np
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.label import MDLabel
-
-import AutoCARB
-from AutoCARB import MixtureType
-import numpy as np
-import webbrowser
-
-
-
-
-#################################################################################################
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 from kivy.uix.image import Image
-
 from kivymd.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
-
 from kivy.uix.scrollview import ScrollView
 from kivy.properties import ObjectProperty
-
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
-import os
+import AutoCARB
+from AutoCARB import MixtureType
+from AutoCARBErrors import *
 
 aperto=False #inizializzo "aperto". Serve pe evitare di aprire tanti popup involontariamente (Jacopo non rompere)
+
+class DialogType(Enum):
+    Error = 0
+    Warning = 1
 
 class ContentNavigationDrawer(BoxLayout):
     pass
@@ -76,15 +73,19 @@ class AutoCARB_app(MDApp):
     
     dialog=None
 
-    def dialog_error(self,type,message):
+    def dialog_error(self,type: DialogType,message):
         '''
         Arguments:
-            type: 1 for ERROR, 2 for WARNING
+            type: a DialogType enum either Error or Warning, defining the type of the dialog.
             message: text shown in the popup
         '''
         if self.dialog is None:
+            if type == DialogType.Error:
+                title = '[color=BE3636]ERROR[/color]'
+            if type == DialogType.Warning:
+                title = '[color=ff8c00]WARNING[/color]'
             dialog = MDDialog(
-                title='[color=BE3636]ERROR[/color]',
+                title=title,
                 text=message,
                 radius=[20, 20, 20, 20],
                 buttons = [
@@ -93,10 +94,6 @@ class AutoCARB_app(MDApp):
                     )
                 ]
             )
-            if type==1:
-                dialog.title = '[color=BE3636]ERROR[/color]'
-            if type==2:
-                dialog.title = '[color=ff8c00]WARNING[/color]'
         dialog.open()
 
     def credits_button(self):
@@ -113,7 +110,7 @@ the carburetion of internal combustion engines.
 Davide Maieron and Adriano Mazzola 
 
 With the collaboration of:
-Antipatico and Alessio Lei
+antipatico and Alessio Lei
 
 The splash page and the icon are edited by:
 Roberta Carlevaris
@@ -163,6 +160,7 @@ Contact: app.autocarb@gmail.com
         pop.open()
         return     
     
+    # THe following is the worst piece of code I have ever witnessed - antipatico
     def check_pop_open(self,istance):
         global aperto
         aperto=False
@@ -236,65 +234,51 @@ Contact: app.autocarb@gmail.com
 
     def start_button(self):
         try:
+            # Step 1: Acquisizione dell'input da parte dell'utente
             args = self.parse_args()
             for k in ["d1", "d3", "d2max", "d2min", "hc", "hd", "lcd"]:
                 args[k] *= 1e-3 # Converto i valori all'interno del dizionario, moltiplicandoli per 0.0001
             args["dgetto"] *= 1e-5 # Questo è per 0.000001
+            
+            # Step 2: Validazione dell'input
+            if args["phi"] > 100:
+                raise HighHumidityError()
 
+            # Step3: Calcolo del risultato
             # La prossima funzione torna 3 valori, e quindi salvo il risultato
             # in 3 variabili diverse. Per approfondire, cercare "tuple python"
             # Questo ci permette non solo di calcolare più volte il rapporto AF,
             # ma anche di scrivere meno codice / codice più elegante.
             AF, error, mixture_type = AutoCARB.rapporto_aria_benzina(args["temp"], args["pressione"], args["phi"],
                         args["dpressione"], args["d1"], args["d3"], args["d2max"], args["d2min"],
-                        args["hc"], args["hd"], args["dgetto"], args["lcd"])               
-                
-#         except TemperatureError:
-#             self.dialog_error(2,'''
-# The temperature value is too high and generates a bad interpolation in the absolute humidity calculations.
-# To avoid errors, when the ambient temperature is above 50 °C, the humidity value will be considered as zero.'''
-#             )
-        
-#         except MachError:
-#             self.dialog_error(2,'''
-# The following result cannot be considered acceptable due to sonic or ultrasonic conditions in the Venuturi pipe.'''
-#             )
+                        args["hc"], args["hd"], args["dgetto"], args["lcd"])
 
-        except:
-            self.dialog_error(1,'Invalid input values.') 
-            #the error window is shown in the case of any general error of the program 
-            return
-
-
-        
-        if float(self.root.ids["temp"].text)>50:
-            self.dialog_error(2,'''
+            # Step 4: Rappresentazione dei risultati e degli avvisi
+            self.root.ids["af"].text = str(np.round(AF, decimals = 2))
+            self.root.ids["err"].text = str(str(np.round(error, decimals = 2))+' %')
+            self.root.ids["mixture_label"].text = str(mixture_type)
+            if mixture_type == MixtureType.Rich or mixture_type == MixtureType.Lean:
+                self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)
+            if mixture_type == MixtureType.Stoichiometric:
+                self.root.ids["mixture_label"].text_color = (51/255, 153/255, 51/255, 1)
+            if args["temp"] > 50:
+                self.dialog_error(DialogType.Warning ,'''
 The temperature value is too high and generates a bad interpolation in the absolute humidity calculations.
 To avoid errors, when the ambient temperature is above 50 °C, the humidity value will be considered as zero.'''
-            )
+                )
+            if args["temp"] == 50:
+                self.easter_egg()
+            
+        except HighHumidityError:
+            self.dialog_error(DialogType.Error ,'Relative humidity value cannot be higher than 100%.')
         
-        if float(self.root.ids["phi"].text)>100:
-            self.dialog_error(1,'Relative humidity value cannot be higher than 100%.')
-            return
-
-        if AutoCARB.NumeroMach(float(self.root.ids["temp"].text), float(self.root.ids["pressione"].text),
-            float(self.root.ids["dpressione"].text),float(self.root.ids["d3"].text)*1e-3,
-            float(self.root.ids["d2max"].text)*1e-3, float(self.root.ids["d2min"].text)*1e-3)>=1:
-
-            self.dialog_error(2,'The following result cannot be considered acceptable due to sonic or ultrasonic conditions in the Venuturi pipe.')
+        except MachError:
+            self.dialog_error(DialogType.Error , 'Due to sonic or ultrasonic conditions in the Venuturi pipe, we cannot calculate the results.')
         
-        if float(self.root.ids["temp"].text)==50:
-            self.easter_egg() #####easter_egg
-     
-        self.root.ids["af"].text = str(np.round(AF, decimals = 2))
-        self.root.ids["err"].text = str(str(np.round(error, decimals = 2))+' %')
-
-        self.root.ids["mixture_label"].text = str(mixture_type)
-        if mixture_type == MixtureType.Rich or mixture_type == MixtureType.Lean:
-            self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)
-        if mixture_type == MixtureType.Stoichiometric:
-            self.root.ids["mixture_label"].text_color = (51/255, 153/255, 51/255, 1)
-             
+        except: # This is an horrible idea and SHOULD NOT BE DONE.
+            self.dialog_error(DialogType.Error ,'Invalid input values.') 
+            #the error window is shown in the case of any general error of the program
 
 
-AutoCARB_app().run()
+if __name__=="__main__":
+    AutoCARB_app().run()
