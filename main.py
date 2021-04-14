@@ -160,7 +160,6 @@ Contact: app.autocarb@gmail.com
         pop.open()
         return     
     
-    # THe following is the worst piece of code I have ever witnessed - antipatico
     def check_pop_open(self,istance):
         global aperto
         aperto=False
@@ -275,7 +274,7 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
         except MachError:
             self.dialog_error(DialogType.Error , 'Due to sonic or ultrasonic conditions in the Venuturi pipe, we cannot calculate the results.')
         
-        except: # This is an horrible idea and SHOULD NOT BE DONE.
+        except: # The following method is not the best one
             self.dialog_error(DialogType.Error ,'Invalid input values.') 
             #the error window is shown in the case of any general error of the program
 
