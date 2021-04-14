@@ -3,3 +3,6 @@ class MachError(Exception):
 
 class HighHumidityError(Exception):
     pass
+
+class DeltaPressureError(Exception):
+    pass

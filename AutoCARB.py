@@ -597,7 +597,9 @@ def velocitaTeoricaBenzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd):
     pc = pressioneMonteGetto(pamb,Tamb,hc)
     p2 = PressioneAriaTeorica2(Tamb,pamb,deltap,d3,d2max,d2min)
     pd = p2+RhoB*(Constants.g)*hd
-    
+    temp_check_vel = (2*(pc-pd)/RhoB)-(hd-hc)*(Constants.g)
+    if temp_check_vel<0:
+        raise DeltaPressureError()
     return np.sqrt((2*(pc-pd)/RhoB)-(hd-hc)*(Constants.g))
 
 

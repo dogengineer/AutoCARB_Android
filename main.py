@@ -274,6 +274,9 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
         except MachError:
             self.dialog_error(DialogType.Error , 'Due to sonic or ultrasonic conditions in the Venuturi pipe, we cannot calculate the results.')
         
+        except DeltaPressureError:
+            self.dialog_error(DialogType.Error , 'Unsufficient Delta Pressure to suck fuel from the fuel chamber.')
+        
         except: # The following method is not the best one
             self.dialog_error(DialogType.Error ,'Invalid input values.') 
             #the error window is shown in the case of any general error of the program
