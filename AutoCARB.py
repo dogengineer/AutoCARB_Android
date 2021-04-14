@@ -428,7 +428,7 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, r_n0 = 
 
     #Il seguente ciclo "for" controlla che il punto iniziale x0 usato in newton sia corretto in quanto
         # la funzione fx ha due "zeri". In questo caso è necessario trovare il secondo zero
-    x0 = 0.1 #first guess for newton
+    x0 = 1 #first guess for newton
     for n in range(0,iters-1):
         r_n_first[n] = newton(fx,Dfx,x0)
         if r_n_first[n] is None:
@@ -691,8 +691,8 @@ def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, d
     Returns:
         coefficiente di attrito
     """
-    # if NumeroMach(...) > 1:
-    #     raise MachError()
+    if NumeroMach(Tamb,pamb,deltap,d3,d2max,d2min) > 1:
+        raise MachError()
     
     portataA = portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, r_n0 = 1)
     portataB = portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd)
