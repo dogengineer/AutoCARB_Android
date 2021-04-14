@@ -243,6 +243,18 @@ Contact: app.autocarb@gmail.com
             if args["phi"] > 100:
                 raise HighHumidityError()
 
+            if args["pressione"] > 9999999:
+                raise HighPressureError()
+                
+            if args["dpressione"] > args["pressione"]:
+                raise DeltaPressureValueError()
+
+            for k in ["pressione","phi","dpressione","d1", "d3", "d2max", "d2min", "dgetto","lcd"]:
+                print(args[k])
+                if args[k] <0:
+                    raise NegativeValuesError()
+                    
+
             # Step3: Calcolo del risultato
             # La prossima funzione torna 3 valori, e quindi salvo il risultato
             # in 3 variabili diverse. Per approfondire, cercare "tuple python"
@@ -267,18 +279,33 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
                 )
             if args["temp"] == 50:
                 self.easter_egg()
+
+            
             
         except HighHumidityError:
             self.dialog_error(DialogType.Error ,'Relative humidity value cannot be higher than 100%.')
         
+        except HighPressureError:
+            self.dialog_error(DialogType.Error ,'Too high ambient pressure.')
+
+        except DeltaPressureValueError:
+            self.dialog_error(DialogType.Error ,'Delta pressure can not been higher than Ambient pressure.')
+        
+        except NegativeValuesError:
+            self.dialog_error(DialogType.Error ,'One or more inputs are negative, thus no physical meaning.')
+
         except MachError:
             self.dialog_error(DialogType.Error , 'Due to sonic or ultrasonic conditions in the Venuturi pipe, we cannot calculate the results.')
         
         except DeltaPressureError:
             self.dialog_error(DialogType.Error , 'Unsufficient Delta Pressure to suck fuel from the fuel chamber.')
         
-        except: # The following method is not the best one
-            self.dialog_error(DialogType.Error ,'Invalid input values.') 
+        except HighDeltaPressureError:
+            self.dialog_error(DialogType.Error , 'Too high Delta Pressure, sonic or supersonic flow. ')
+        
+        except Exception as e: # The following method is not the best one
+            self.dialog_error(DialogType.Error, f"Unhandled Exception: {type(e)}, {e}.\n\nPlease report this error @ app.autocarb@gmail.com")
+            #self.dialog_error(DialogType.Error ,'Invalid input values.') 
             #the error window is shown in the case of any general error of the program
 
 

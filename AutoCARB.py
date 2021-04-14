@@ -165,6 +165,8 @@ def velocitaSez3(Tamb,pamb,deltap):
     T3 = TemperaturaTeoricaAria3(Tamb,pamb,deltap)
     k = RapportoCaloreAria(T3)
     
+    if P3/pamb==1:
+        raise DeltaPressureError()
     return np.sqrt(k*(Constants.R)*(Tamb+(Constants.k2c)))*np.sqrt((2/(k-1))*(1-(P3/pamb)**((k-1)/k)))
 
 
@@ -208,6 +210,8 @@ def PressioneAriaTeorica2(Tamb,pamb,deltap,d3,d2max,d2min):
     cDuet = velocitaTeoricaSez2(Tamb,pamb,deltap,d3,d2max,d2min)
     k = RapportoCaloreAria(Tamb)
     
+    if ((k-1)*((cDuet**2)/2))/((k*(Constants.R)*(Tamb+(Constants.k2c))))>=1:
+        raise HighDeltaPressureError()    
     return pamb*(1-(((k-1)*((cDuet**2)/2))/(k*(Constants.R)*(Tamb+(Constants.k2c)))))**(k/(k-1))
       
 
