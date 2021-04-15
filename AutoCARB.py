@@ -401,7 +401,7 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, r_n0 = 
     #https://neutrium.net/fluid-flow/discharge-coefficient-for-nozzles-and-orifices/
     C_i = 0.9975-((6.53*np.sqrt(d2medio/d1))/np.sqrt(Re))
     
-    #verifica che il coefficiente non sia negativo o nullo, altrimenti do errore
+    #verifica che il coefficiente non sia negativo o nullo, altrimenti genero errore
     if C_i <= 0:
         raise IncompressibleAirDischargeCoefficientError()
 
@@ -615,7 +615,7 @@ def velocitaTeoricaBenzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd):
     temp_check_vel = (2*(pc-pd)/RhoB)-(hd-hc)*(Constants.g)
     if temp_check_vel<0:
         raise DeltaPressureError()
-    return np.sqrt((2*(pc-pd)/RhoB)-(hd-hc)*(Constants.g))
+    return np.sqrt(temp_check_vel)
 
 
             

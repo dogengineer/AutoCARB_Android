@@ -226,9 +226,13 @@ Contact: app.autocarb@gmail.com
         # Usiamo un dizionario e un ciclo per evitare di dover ripetere il codice.
         user_inputs = ["temp", "pressione", "phi", "dpressione", "d1", "d3", "d2max", "d2min", "d2max", "hc", "hd", "dgetto", "lcd"]
         args = dict() # Creo un dizionario, una struttura dati che dato un valore di chiave, ritorna un valore associato.
-        for k in user_inputs:
-            args[k] = float(self.root.ids[k].text) # Popolo il dizionario con i valori inseriti dall'utente
-        return args
+        try:
+            for k in user_inputs:
+                args[k] = float(self.root.ids[k].text) # Popolo il dizionario con i valori inseriti dall'utente
+            return args
+        except ValueError:
+            raise InvalidInputError()
+
             
 
     def start_button(self):
@@ -262,7 +266,6 @@ Contact: app.autocarb@gmail.com
             if args["lcd"]*1e3 > 10000:
                 raise HighJetLengthError()
 
-
             # Step3: Calcolo del risultato
             # La prossima funzione torna 3 valori, e quindi salvo il risultato
             # in 3 variabili diverse. Per approfondire, cercare "tuple python"
@@ -293,46 +296,46 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
             self.dialog_error(DialogType.Error ,'One or more inputs are negative, thus no physical meaning.')   
             
         except HighHumidityError:
-            self.dialog_error(DialogType.Error ,'Relative humidity value cannot be higher than 100%.')
+            self.dialog_error(DialogType.Error ,'Relative humidity value can\'t be higher than 100%.')
         
         except HighPressureError:
             self.dialog_error(DialogType.Error ,'Too high ambient pressure.')
 
         except DeltaPressureValueError:
-            self.dialog_error(DialogType.Error ,'Delta pressure can not been higher than Ambient pressure.')       
+            self.dialog_error(DialogType.Error ,'Delta pressure can\'t ben higher than Ambient pressure.')       
 
         except SubAbsoluteTempError:
-            self.dialog_error(DialogType.Error ,'Physically unacceptable ambient temperature value, beaucose it is below absolute zero.')
+            self.dialog_error(DialogType.Error ,'Physically unacceptable ambient temperature value, it can\'t be lower than absolute zero.')
 
         except HighJetDiameterError:
-            self.dialog_error(DialogType.Error , 'jet diameter too large. ')
+            self.dialog_error(DialogType.Error , 'Jet diameter too high. ')
 
         except HighJetLengthError:
-            self.dialog_error(DialogType.Error , 'jet length too large. ')
+            self.dialog_error(DialogType.Error , 'Too high jet length. ')
 
         #------------------------------------------------------------------------------------------
-        except MachError:
-            self.dialog_error(DialogType.Error , 'Due to sonic or ultrasonic conditions in the Venuturi pipe, we cannot calculate the results.')
+        except HighRoomTemperatureError: 
+            self.dialog_error(DialogType.Error , 'Ambient temperature is too high. Result can\'t be calculated')
         
-        except HighRoomTemperatureError:
-            self.dialog_error(DialogType.Error , 'The ambient temperature is too high such as to make the value of the ratio between specific heats (k) equal to one. This value of k brings the equation of the divergent velocity to have the denominator equal to zero. ')
-
         except DeltaPressureError:
             self.dialog_error(DialogType.Error , 'Unsufficient Delta Pressure to suck fuel from the fuel chamber.')
         
         except HighDeltaPressureError:
-            self.dialog_error(DialogType.Error , 'Too high Delta Pressure, sonic or supersonic flow. ')
+            self.dialog_error(DialogType.Error , 'Too high Delta Pressure, sonic or supersonic flow.')
         
         except IncompressibleAirDischargeCoefficientError:
-            self.dialog_error(DialogType.Error , 'Unacceptable value of the incompressible air exhaust coefficient (Neutrium equation). ')
+            self.dialog_error(DialogType.Error , 'Unacceptable value of the incompressible air discharge coefficient (Neutrium equation).')
 
         except ForceDefectCoefficientIncompressibleError:
-            self.dialog_error(DialogType.Error , 'Unacceptable value of the Force Defect Coefficient for incompressible fluids. ')
+            self.dialog_error(DialogType.Error , 'Unacceptable value of the Force Defect Coefficient for incompressible fluids.')
+        
+        except MachError:
+            self.dialog_error(DialogType.Error , 'Due to sonic or ultrasonic conditions in the Venuturi pipe, we can\'t calculate the results.')
+        
+        except InvalidInputError:
+            self.dialog_error(DialogType.Error , 'Invalid input value.')
 
-        except ValueError:
-            self.dialog_error(DialogType.Error , 'Invalid input value. ')
-
-        #Ricerca dei bug
+        #Unexpected error/bug message
         except Exception as e: 
             self.dialog_error(DialogType.Error, f"Unhandled Exception: {type(e)}, {e}.\n\nPlease report this error @ app.autocarb@gmail.com")
             

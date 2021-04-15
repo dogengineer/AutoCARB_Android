@@ -1,9 +1,6 @@
 class NegativeValuesError(Exception):
     pass
 
-class MachError(Exception):
-    pass
-
 class HighHumidityError(Exception):
     pass
 
@@ -36,4 +33,10 @@ class IncompressibleAirDischargeCoefficientError(Exception):
     pass
 
 class ForceDefectCoefficientIncompressibleError(Exception):
+    pass
+
+class MachError(Exception):
+    pass
+
+class InvalidInputError(Exception):
     pass
