@@ -1,21 +1,25 @@
 
-#:import Clock kivy.clock.Clock
+
 <ItemDrawer>:
-    # theme_text_color: "Custom"
-    # on_release: self.parent.set_color_item(self)
 
-    # IconLeftWidget:
-    #     id: icon
-    #     icon: root.icon
-        # theme_text_color: "Custom"
-        # text_color: root.text_color
+#Creo un textfield personalizzato
+<InputTextField@MDTextField>:
+    multiline: False
+    max_text_length: 9
+    helper_text_mode: 'on_error'
+    helper_text: 'max n° of digits = 9'
+    fill_color: 0, 0, 0, .4
+    input_filter:'float'
+    halign: "center"
 
 
+#Contenuto del menù
 <ContentNavigationDrawer>:
     orientation: "vertical"
     padding: "15dp"
     spacing: "15dp"
 
+    #oggetti del menù (icona + nome...)
     GridLayout:
         cols:2
         size_hint_y: .15
@@ -50,58 +54,52 @@
                 # padding: (0,10)
 
 
-    
+    #pulsanti del menù
     ScrollView:
         size: self.size
-        MDList:
-            #rows:4
-            #padding: 10
-            # size_hint_y: None
-            # height: self.minimum_height
+        MDList:            
             OneLineIconListItem:
                 text: "Link to Manual"
                 theme_text_color: "Custom"
                 text_color: 0.7, 0.5, 1, 1
                 md_bg_color: 255/255, 240/255, 24/255, 0
                 size_hint_x: 1
-                on_release: app.help_button()
-                #on_release: Clock.schedule_once(lambda x: app.help_button(), 1)
+                on_release: app.help_button()                
                 IconLeftWidget:
                     icon: "help-circle-outline"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
                     on_release: app.help_button()
                     
-            
+            #tasto per cambiare il tema chiaro scuro
             OneLineIconListItem:               
                 text: "App Theme Toggle"
                 theme_text_color: "Custom"
                 text_color: 0.7, 0.5, 1, 1
                 md_bg_color: 255/255, 240/255, 24/255, 0
                 size_hint_x: 1
-                on_release: app.theme_change()
-                #on_release: Clock.schedule_once(lambda x: app.theme_change(), 1)
+                on_release: app.theme_change()               
                 IconLeftWidget:
                     icon: "theme-light-dark"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
                     on_release: app.theme_change()
                     
-            
+            #Pulsante di popup per i crediti
             OneLineIconListItem:                
                 text: "Credits"
                 theme_text_color: "Custom"
                 text_color: 0.7, 0.5, 1, 1
                 md_bg_color: 255/255, 240/255, 24/255, 0
                 size_hint_x: 1
-                on_release: app.credits_button()
-                #on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
+                on_release: app.credits_button()               
                 IconLeftWidget:
                     icon: "email"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
                     on_release: app.credits_button()
             
+            #Dacci i Soldi
             OneLineIconListItem:                
                 text: "Support Developer"
                 theme_text_color: "Custom"
@@ -109,43 +107,41 @@
                 md_bg_color: 255/255, 240/255, 24/255, 0
                 size_hint_x: 1
                 on_release: app.donation_button()
-                #on_release: Clock.schedule_once(lambda x: app.credits_button(), 1)
                 IconLeftWidget:
                     icon: "bank"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
                     on_release: app.donation_button()
 
+            #Licenza
             OneLineIconListItem:           
                 text: "Link to Licence"
                 theme_text_color: "Custom"
                 text_color: 0.7, 0.5, 1, 1
                 size_hint_x: 1
                 on_release: app.licence_button()
-                #on_release: Clock.schedule_once(lambda x: app.licence_button(), 1)
                 IconLeftWidget:
                     icon: "license"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1
                     on_release: app.licence_button()
 
+            #Link a github
             OneLineIconListItem:           
                 text: "Link to source code"
                 theme_text_color: "Custom"
                 text_color: 0.7, 0.5, 1, 1
                 size_hint_x: 1
                 on_release: app.code_button()
-                #on_release: Clock.schedule_once(lambda x: app.licence_button(), 1)
                 IconLeftWidget:
                     icon: "github-circle"
                     theme_text_color: "Custom"
                     text_color: 0.7, 0.5, 1, 1   
                     on_release: app.code_button() 
-            # DrawerList:
-            #     id: md_list
 
+#---------------------------------------------------------------------------------------------
 
-
+#SCHERMATA PRINCIPALE
 Screen:
     
     NavigationLayout:
@@ -157,36 +153,29 @@ Screen:
                 BoxLayout:
                     orientation: 'vertical'
                     
+                    #barra superiore con titolo, salva menù e reset
                     MDToolbar:
                         title: "AutoCARB"
                         elevation: 10
-                        left_action_items: [['menu', lambda x: nav_drawer.toggle_nav_drawer()]]
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
                         right_action_items: [['content-save',lambda x: app.save_entries()],['restore',lambda x: app.reset_entries()]]
-                    # Widget:
+                    
+                    #barra inferiore con home e dimension
                     MDBottomNavigation:
                         id: btt_layout
                         panel_color: .2, .2, .2, 1
-
+                        
+                        #BOTTONE HOME
                         MDBottomNavigationItem:
                             name: 'screen 1'
                             text: 'Home'
                             icon: 'home'
-                        
+
+                            #Contenuto della home
                             GridLayout:
-                                rows:5
-                                # MDLabel:
-                                #     id: mdlab
-                                #     halign: "center"
-                                #     text: "Press RUN to start the calculations."
-                                #     # font_style: "H4"
-                                #     padding_x: 30
-                                #     padding_y: 20
-                                #     size_hint_y: None
-                                #     height: self.texture_size[1]
-                                #     text_size: self.width, None
-                                #     theme_text_color: "Custom"
-                                #     text_color: 0.7, 0.5, 1, 1
-                                    
+                                rows:5                                
+
+                                #risultati dei calcoli (A/F e errore)   
                                 GridLayout:
                                     cols:2
                                     rows: 2
@@ -240,6 +229,8 @@ Screen:
                                         halign: "center"
                                         theme_text_color: "Custom"
                                         text_color: 0.7, 0.5, 1, 1
+
+                                #Label con su scritto il Tipo di miscela
                                 MDLabel:
                                     id: mixture_label
                                     text: "Mixture Type"
@@ -258,13 +249,17 @@ Screen:
                                         Rectangle:
                                             size: self.size
                                             pos: self.pos
-                                MDLabel: #just to have some space between "mixture type" and inputs
+
+                                #Spazio vuoto con testo trasparente
+                                MDLabel: 
                                     text: "---"
                                     padding_y: 5
                                     size_hint_y: None
                                     height: self.texture_size[1]
                                     theme_text_color: "Custom"
                                     text_color: 0.3, 1, 0.2, 0
+
+                                #LISTA INPUT
                                 MDScrollViewRefreshLayout:
                                     id: refresh
                                     size: self.size
@@ -274,209 +269,88 @@ Screen:
                                     GridLayout:
                                         size_hint_y: None
                                         height: self.minimum_height
-                                        # row_default_height: 20
                                         id: box
                                         rows: 14
                                         cols: 1
                                         padding: 30
 
-                                        MDTextField:
+                                        InputTextField:
                                             id:temp
-                                            hint_text: "Room Temperature [°C]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
+                                            hint_text: "Room Temperature [°C]"                                            
                                             text: "20"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:pressione
-                                            hint_text: "Room Pressure [Pa]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "rectangle"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "101325"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:phi
-                                            hint_text: "Relative humidity [%]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "40"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:dpressione
-                                            hint_text: "\u0394P [Pa]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "13325"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:d1
-                                            hint_text: "d1 [mm]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "42"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:d3
-                                            hint_text: "d3 [mm]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "20"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:d2max
-                                            hint_text: "d2max [mm]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "19"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:d2min
-                                            hint_text: " d2min [mm]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "19"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:hc
-                                            hint_text: "hC [mm]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "17"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:hd
-                                            hint_text: "hD [mm]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "fill"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "45"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:dgetto
-                                            hint_text: "djet [calbrated hole]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "rectangle"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "97"
-                                            input_filter:'float'
-                                            halign: "center"
-                                        MDTextField:
-                                            id:lcd
-                                            hint_text: "lCD [mm]"
-                                            multiline: False
-                                            max_text_length: 9
-                                            helper_text_mode: 'on_error'
-                                            helper_text: 'max n° of digits = 9'
-                                            #mode: "rectangle"
-                                            fill_color: 0, 0, 0, .4
-                                            text: "2"
-                                            input_filter:'float'
-                                            halign: "center"
                                         
+                                        InputTextField:
+                                            id:pressione
+                                            hint_text: "Room Pressure [Pa]"                                           
+                                            text: "101325"
+                                            
+                                        InputTextField:
+                                            id:phi
+                                            hint_text: "Relative humidity [%]"                                            
+                                            text: "40"
+                                            
+                                        InputTextField:
+                                            id:dpressione
+                                            hint_text: "\u0394P [Pa]"                                            
+                                            text: "13325"
+                                            
+                                        InputTextField:
+                                            id:d1
+                                            hint_text: "d1 [mm]"                                           
+                                            text: "42"
+                                            
+                                        InputTextField:
+                                            id:d3
+                                            hint_text: "d3 [mm]"                                            
+                                            text: "20"
+
+                                        InputTextField:
+                                            id:d2max
+                                            hint_text: "d2max [mm]"                                         
+                                            text: "19"
+
+                                        InputTextField:
+                                            id:d2min
+                                            hint_text: " d2min [mm]"                                            
+                                            text: "19"
+  
+                                        InputTextField:
+                                            id:hc
+                                            hint_text: "hC [mm]"                                            
+                                            text: "17"
+"
+                                        InputTextField:
+                                            id:hd
+                                            hint_text: "hD [mm]"                                            
+                                            text: "45"
+
+                                        InputTextField:
+                                            id:dgetto
+                                            hint_text: "djet [calbrated hole]"                                           
+                                            text: "97"
+
+                                        InputTextField:
+                                            id:lcd
+                                            hint_text: "lCD [mm]"                                           
+                                            text: "2"
+                                        
+                                        #SPAZI VUOTI CON TESTO TRASPARENTE PER LO SCROLL
                                         MDLabel:
                                             text: "---"
-                                            # halign: "center"
-                                            # padding_x: 10
                                             padding_y: 150
                                             size_hint_y: None
-                                            height: self.texture_size[1]
-                                            # text_size: self.width, None
+                                            height: self.texture_size[1]                                          
                                             theme_text_color: "Custom"
                                             text_color: 0.3, 1, 0.2, 0
                                         MDLabel:
                                             text: "---"
-                                            # halign: "center"
-                                            # padding_x: 10
                                             padding_y: 150
                                             size_hint_y: None
                                             height: self.texture_size[1]
-                                            # text_size: self.width, None
                                             theme_text_color: "Custom"
                                             text_color: 0.3, 1, 0.2, 0
-                                    # MDTextField:
-                                    #     id:rapp_af
-                                    #     hint_text: "rapporto_AF"
-                                    #     fill_color: 0, 0, 0, .4
-                                    #     text: "101325"
-                                    # MDTextField:
-                                    #     id:errore
-                                    #     hint_text: "err"
-                                    #     fill_color: 0, 0, 0, .4
-                                    #     text: "101325"   
-                                    # SmartTile:
-                                    #     size_hint: 1, None
-                                    #     width: "860dp"
-                                    #     height: "380dp" 
-                                    #     halign: "center"
-                                    #     source: "./media/drawing.jpg"
-                                    # MDLabel:
-                                    #     id:v1
-                                    # MDLabel:
-                                    #     id:v2
-                                    # MDLabel:
-                                    #     id:v3
-                                    # MDLabel:
-                                    #     id:v4
-                                    # MDLabel:
-                                    #     id:v5
-                                    # MDLabel:
-                                    #     id:v6
-                                    # MDLabel:
-                                    #     id:v7
-                                    # MDLabel:
-                                    #     id:v8
+
+                                #Tasto RUN
                                 MDRaisedButton:
                                     id: mdbu
                                     text: "RUN"
@@ -490,19 +364,6 @@ Screen:
                             text: 'Dimensions'
                             icon: 'image-area'
 
-                            # questo metodo funziona
-                            # Popup:
-                            #     title: 'Carburetor Dimensions'
-                            #     size_hint:(1, 1)
-                            #     separator_color : [0.7, 0.5, 1, 1]
-                            #     separator_height:'5dp'
-                            #     title_align:'center'
-                            #     # title_size='14sp'
-                            #     #  size=(400, 400)
-                            #     Image:
-                            #         source: "./media/drawing.jpg"
-                                    
-                            # questo metodo funziona
                             BoxLayout:
                                 
                                 orientation: 'vertical'

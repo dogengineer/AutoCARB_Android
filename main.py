@@ -198,6 +198,11 @@ Contact: app.autocarb@gmail.com
         self.root.ids["hd"].text="45"
         self.root.ids["dgetto"].text="97"
         self.root.ids["lcd"].text="2"
+        #queste tre linee resettano i risultati
+        self.root.ids["af"].text="-"
+        self.root.ids["err"].text="-"
+        self.root.ids["mixture_label"].text="Mixture Type"
+        self.root.ids["mixture_label"].text_color = (0.7, 0.5, 1, 1)
        
     def save_entries(self):
         if os.path.exists('inputs_saved.txt'):
@@ -315,7 +320,7 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
 
         #------------------------------------------------------------------------------------------
         except HighRoomTemperatureError: 
-            self.dialog_error(DialogType.Error , 'Ambient temperature is too high. Result can\'t be calculated')
+            self.dialog_error(DialogType.Error , 'Ambient temperature is too high. Result can\'t be calculated.')
         
         except DeltaPressureError:
             self.dialog_error(DialogType.Error , 'Unsufficient Delta Pressure to suck fuel from the fuel chamber.')
