@@ -164,6 +164,9 @@ def velocitaSez3(Tamb,pamb,deltap):
     P3 = pressioneAria3(pamb,deltap)
     T3 = TemperaturaTeoricaAria3(Tamb,pamb,deltap)
     k = RapportoCaloreAria(T3)
+
+    if k==1:
+        raise HighRoomTemperatureError()       
     
     if P3/pamb==1:
         raise DeltaPressureError()
@@ -398,7 +401,7 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, r_n0 = 
     #https://neutrium.net/fluid-flow/discharge-coefficient-for-nozzles-and-orifices/
     C_i = 0.9975-((6.53*np.sqrt(d2medio/d1))/np.sqrt(Re))
     
-    #verifica che il coeffiviente non sia negativo o nullo, altrimenti do errore
+    #verifica che il coefficiente non sia negativo o nullo, altrimenti do errore
     if C_i <= 0:
         raise IncompressibleAirDischargeCoefficientError()
 

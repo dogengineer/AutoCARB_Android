@@ -1,3 +1,6 @@
+class NegativeValuesError(Exception):
+    pass
+
 class MachError(Exception):
     pass
 
@@ -10,9 +13,6 @@ class HighPressureError(Exception):
 class DeltaPressureValueError(Exception):
     pass
 
-class NegativeValuesError(Exception):
-    pass
-
 class SubAbsoluteTempError(Exception):
     pass
 
@@ -23,6 +23,8 @@ class HighJetLengthError(Exception):
     pass
 
 #---------------------------------------------
+class HighRoomTemperatureError(Exception):
+    pass
 
 class DeltaPressureError(Exception):
     pass

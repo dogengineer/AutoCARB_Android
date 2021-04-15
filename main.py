@@ -240,6 +240,10 @@ Contact: app.autocarb@gmail.com
             args["dgetto"] *= 1e-5 # Questo è per 0.000001
             
             # Step 2: Validazione dell'input
+            for k in ["pressione","phi","dpressione","d1", "d3", "d2max", "d2min", "dgetto","lcd"]:
+                if args[k] <0:
+                    raise NegativeValuesError()
+            
             if args["phi"] > 100:
                 raise HighHumidityError()
 
@@ -248,10 +252,6 @@ Contact: app.autocarb@gmail.com
                 
             if args["dpressione"] > args["pressione"]:
                 raise DeltaPressureValueError()
-
-            for k in ["pressione","phi","dpressione","d1", "d3", "d2max", "d2min", "dgetto","lcd"]:
-                if args[k] <0:
-                    raise NegativeValuesError()
                     
             if args["temp"] < -273:
                 raise SubAbsoluteTempError()
@@ -288,7 +288,9 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
             if args["temp"] == 50:
                 self.easter_egg()
 
-            
+
+        except NegativeValuesError:
+            self.dialog_error(DialogType.Error ,'One or more inputs are negative, thus no physical meaning.')   
             
         except HighHumidityError:
             self.dialog_error(DialogType.Error ,'Relative humidity value cannot be higher than 100%.')
@@ -297,10 +299,7 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
             self.dialog_error(DialogType.Error ,'Too high ambient pressure.')
 
         except DeltaPressureValueError:
-            self.dialog_error(DialogType.Error ,'Delta pressure can not been higher than Ambient pressure.')
-        
-        except NegativeValuesError:
-            self.dialog_error(DialogType.Error ,'One or more inputs are negative, thus no physical meaning.')
+            self.dialog_error(DialogType.Error ,'Delta pressure can not been higher than Ambient pressure.')       
 
         except SubAbsoluteTempError:
             self.dialog_error(DialogType.Error ,'Physically unacceptable ambient temperature value, beaucose it is below absolute zero.')
@@ -315,6 +314,9 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
         except MachError:
             self.dialog_error(DialogType.Error , 'Due to sonic or ultrasonic conditions in the Venuturi pipe, we cannot calculate the results.')
         
+        except HighRoomTemperatureError:
+            self.dialog_error(DialogType.Error , 'The ambient temperature is too high such as to make the value of the ratio between specific heats (k) equal to one. This value of k brings the equation of the divergent velocity to have the denominator equal to zero. ')
+
         except DeltaPressureError:
             self.dialog_error(DialogType.Error , 'Unsufficient Delta Pressure to suck fuel from the fuel chamber.')
         
