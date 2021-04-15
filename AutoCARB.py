@@ -394,9 +394,13 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, r_n0 = 
     T2t = TemperaturaTeoricaAria2(Tamb,pamb,deltap,d3,d2max,d2min)           
     d2medio = ((d2max+d2min)/2)
     
-    #coefficiente dell'aria incomprimibile calcolata con neutrium
+    #coefficiente di efflusso dell'aria incomprimibile calcolata con neutrium
     #https://neutrium.net/fluid-flow/discharge-coefficient-for-nozzles-and-orifices/
     C_i = 0.9975-((6.53*np.sqrt(d2medio/d1))/np.sqrt(Re))
+    
+    #verifica che il coeffiviente non sia negativo o nullo, altrimenti do errore
+    if C_i <= 0:
+        raise IncompressibleAirDischargeCoefficientError()
 
     #esponente della trasformazione adiabatica
     gamma = RapportoCaloreAria(T2t)
@@ -406,6 +410,10 @@ def Coefficiente_efflusso_aria(Tamb, pamb, deltap, d1, d3, d2max, d2min, r_n0 = 
     
     #equazione 6 del paper(Force defect coefficient fluido incomprimibile)
     f_i=1/C_i-1/(2*C_i**2) 
+
+    #errore del Force defect coefficient fluido incomprimibile
+    if f_i <= 0:
+        raise ForceDefectCoefficientIncompressibleError()
     
     #equazione 16 del paper
     k = np.sqrt(2*f_i)
