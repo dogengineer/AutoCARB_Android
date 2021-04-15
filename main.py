@@ -329,6 +329,9 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
         except ForceDefectCoefficientIncompressibleError:
             self.dialog_error(DialogType.Error , 'Unacceptable value of the Force Defect Coefficient for incompressible fluids. ')
 
+        except ValueError:
+            self.dialog_error(DialogType.Error , 'Invalid input value. ')
+
         #Ricerca dei bug
         except Exception as e: 
             self.dialog_error(DialogType.Error, f"Unhandled Exception: {type(e)}, {e}.\n\nPlease report this error @ app.autocarb@gmail.com")
