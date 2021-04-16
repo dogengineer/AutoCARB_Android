@@ -1,6 +1,9 @@
 class NegativeValuesError(Exception):
     pass
 
+class SmallValuesError(Exception):
+    pass
+
 class HighHumidityError(Exception):
     pass
 

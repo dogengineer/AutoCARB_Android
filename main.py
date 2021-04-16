@@ -250,9 +250,17 @@ Contact: app.autocarb@gmail.com
             
             # Step 2: Validazione dell'input
             for k in ["pressione","phi","dpressione","d1", "d3", "d2max", "d2min", "dgetto","lcd"]:
-                if args[k] <0:
+                if args[k] <= 0:
                     raise NegativeValuesError()
             
+            for k in ["pressione", "dpressione"]:
+                if args[k] < 10:
+                    raise SmallValuesError()
+
+            for k in ["d1", "d3", "d2max", "d2min"]:
+                if args[k]*1e3 < 1 or args["dgetto"]*1e5 < 1 or args["lcd"]*1e3 < 0.1:
+                    raise SmallValuesError()
+
             if args["phi"] > 100:
                 raise HighHumidityError()
 
@@ -298,8 +306,11 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
 
 
         except NegativeValuesError:
-            self.dialog_error(DialogType.Error ,'One or more inputs are negative, thus no physical meaning.')   
-            
+            self.dialog_error(DialogType.Error ,'One or more inputs are null or negative, thus no physical meaning.')   
+
+        except SmallValuesError:
+            self.dialog_error(DialogType.Error ,'One or more inputs are too small.')
+
         except HighHumidityError:
             self.dialog_error(DialogType.Error ,'Relative humidity value can\'t be higher than 100%.')
         
