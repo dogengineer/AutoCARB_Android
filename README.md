@@ -38,9 +38,10 @@ The instruction manual for perfect carburetion is available at [this address](ht
 
 The AutoCARB homepage is structured such as:
 1. In the center, you can find the inputs that you will have to enter to start the calculations.
-2. In the right corner you can find a button that brings you to the image containing all the dimensions required.
-3. In the top right corner you can find the buttons to save and restore all the inputs.
-4. In the top left corner you will find the menu, where you can access the manual, the contacts, the paypal link to support us and the button to change the application theme.
+2. Above the inputs you will find a float to select the "type" of your engine.
+3. In the right corner you can find a button that brings you to the image containing all the dimensions required.
+4. In the top right corner you can find the buttons to save and restore all the inputs.
+5. In the top left corner you will find the menu, where you can access the manual, the contacts, the paypal link to support us and the button to change the application theme.
 
 
 ## Contributors
