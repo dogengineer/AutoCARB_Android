@@ -19,7 +19,10 @@ import AutoCARB
 from AutoCARB import MixtureType
 from AutoCARBErrors import *
 
+#-------------------#global variables#----------------------
 aperto=False #inizializzo "aperto". Serve pe evitare di aprire tanti popup involontariamente (Jacopo non rompere)
+user_inputs = ["oil_percentage", "temp", "pressione", "phi", "dpressione", "d1", "d3", "d2max", "d2min", "hc", "hd", "dgetto", "lcd"]
+#--------------------------------------------------
 
 class DialogType(Enum):
     Error = 0
@@ -32,7 +35,6 @@ from kivy.clock import Clock
 
 class AutoCARB_app(MDApp):
     def refresh_callback(self, *args):
-        
         def refresh_callback(interval): #fake refresh
             self.root.ids['refresh'].refresh_done()
 
@@ -50,23 +52,29 @@ class AutoCARB_app(MDApp):
     def help_button(self):
         webbrowser.open_new('https://drive.google.com/drive/folders/1R0lzU6_zJvO-YX1yDZe_P2RxIkCc_qsJ?usp=sharing')
     
-    
     def on_start(self):
+        global user_inputs
+
         if os.path.exists('inputs_saved.txt'):
             with open('inputs_saved.txt') as inputs:
                 entries=[line.rstrip() for line in inputs]
-                self.root.ids["temp"].text=entries[0]
-                self.root.ids["pressione"].text=entries[1]
-                self.root.ids["phi"].text=entries[2]
-                self.root.ids["dpressione"].text=entries[3]
-                self.root.ids["d1"].text=entries[4]
-                self.root.ids["d3"].text=entries[5]
-                self.root.ids["d2min"].text=entries[6]
-                self.root.ids["d2max"].text=entries[7]
-                self.root.ids["hc"].text=entries[8]
-                self.root.ids["hd"].text=entries[9]
-                self.root.ids["dgetto"].text=entries[10]
-                self.root.ids["lcd"].text=entries[11]
+                i=0
+                for k in user_inputs:
+                    self.root.ids[k].text = entries[i]
+                    i=i+1
+                # self.root.ids["oil"].text = entries[0]
+                # self.root.ids["temp"].text=entries[1]
+                # self.root.ids["pressione"].text=entries[2]
+                # self.root.ids["phi"].text=entries[3]
+                # self.root.ids["dpressione"].text=entries[4]
+                # self.root.ids["d1"].text=entries[5]
+                # self.root.ids["d3"].text=entries[6]
+                # self.root.ids["d2min"].text=entries[7]
+                # self.root.ids["d2max"].text=entries[8]
+                # self.root.ids["hc"].text=entries[9]
+                # self.root.ids["hd"].text=entries[10]
+                # self.root.ids["dgetto"].text=entries[11]
+                # self.root.ids["lcd"].text=entries[12]
 
 
     #-----------------------Gestione Errori----------------------------------------------------------------#
@@ -186,6 +194,12 @@ Contact: app.autocarb@gmail.com
     def reset_entries(self):
         if os.path.exists('inputs_saved.txt'):
             os.remove('inputs_saved.txt')
+
+        self.root.ids["oil_percentage"].visible = True  
+        self.root.ids["oil_percentage"].text = "2"
+        self.root.ids["stroke_switch"].active = True
+        self.root.ids["stroke"].text = "2 stroke engine"
+
         self.root.ids["temp"].text="20"
         self.root.ids["pressione"].text="101325"
         self.root.ids["phi"].text="40"
@@ -208,18 +222,24 @@ Contact: app.autocarb@gmail.com
         if os.path.exists('inputs_saved.txt'):
             os.remove('inputs_saved.txt')
 
-        entries=list(range(12)) #inizializzo vettore
+        entries=list(range(13)) #inizializzo vettore
+        global user_inputs
+        for k in entries:
+            entries[k]=self.root.ids[user_inputs[k]].text
 
-        entries[0]=self.root.ids["temp"].text
-        entries[1]=self.root.ids["pressione"].text
-        entries[2]=self.root.ids["phi"].text
-        entries[3]=self.root.ids["dpressione"].text
-        entries[4]=self.root.ids["d1"].text
-        entries[5]=self.root.ids["d3"].text
-        entries[6]=self.root.ids["d2min"].text
-        entries[7]=self.root.ids["d2max"].text
-        entries[10]=self.root.ids["dgetto"].text
-        entries[11]=self.root.ids["lcd"].text
+        # entries[0]=self.root.ids["oil"].text
+        # entries[1]=self.root.ids["temp"].text
+        # entries[2]=self.root.ids["pressione"].text
+        # entries[3]=self.root.ids["phi"].text
+        # entries[4]=self.root.ids["dpressione"].text
+        # entries[5]=self.root.ids["d1"].text
+        # entries[6]=self.root.ids["d3"].text
+        # entries[7]=self.root.ids["d2min"].text
+        # entries[8]=self.root.ids["d2max"].text
+        # entries[9]=self.root.ids["hc"].text
+        # entries[10]=self.root.ids["hd"].text
+        # entries[11]=self.root.ids["dgetto"].text
+        # entries[12]=self.root.ids["lcd"].text
 
         f=open('inputs_saved.txt','w')
         for item in entries:
@@ -229,7 +249,8 @@ Contact: app.autocarb@gmail.com
 
     def parse_args(self):
         # Usiamo un dizionario e un ciclo per evitare di dover ripetere il codice.
-        user_inputs = ["temp", "pressione", "phi", "dpressione", "d1", "d3", "d2max", "d2min", "d2max", "hc", "hd", "dgetto", "lcd"]
+        # user_inputs = ["oil","temp", "pressione", "phi", "dpressione", "d1", "d3", "d2max", "d2min", "d2max", "hc", "hd", "dgetto", "lcd"]
+        global user_inputs
         args = dict() # Creo un dizionario, una struttura dati che dato un valore di chiave, ritorna un valore associato.
         try:
             for k in user_inputs:
@@ -238,7 +259,15 @@ Contact: app.autocarb@gmail.com
         except ValueError:
             raise InvalidInputError()
 
-            
+    def stroke_check(self, _, value):
+        if value:
+            self.root.ids["oil_percentage"].visible = True
+            self.root.ids["oil_percentage"].text = "2"
+            self.root.ids["stroke"].text = "2 stroke engine"
+        else:
+            self.root.ids["oil_percentage"].visible = False
+            self.root.ids["oil_percentage"].text = "0"
+            self.root.ids["stroke"].text = "4 stroke engine"
 
     def start_button(self):
         try:
@@ -247,8 +276,15 @@ Contact: app.autocarb@gmail.com
             for k in ["d1", "d3", "d2max", "d2min", "hc", "hd", "lcd"]:
                 args[k] *= 1e-3 # Converto i valori all'interno del dizionario, moltiplicandoli per 0.0001
             args["dgetto"] *= 1e-5 # Questo è per 0.000001
-            
+            args["oil_percentage"] *= 1e-2
+
             # Step 2: Validazione dell'input
+            if args["oil_percentage"]<0:
+                raise OilError()
+
+            if args["oil_percentage"]>0.2:
+                raise OilError()
+
             for k in ["pressione","phi","dpressione","d1", "d3", "d2max", "d2min", "dgetto","lcd"]:
                 if args[k] <= 0:
                     raise NegativeValuesError()
@@ -284,18 +320,19 @@ Contact: app.autocarb@gmail.com
             # in 3 variabili diverse. Per approfondire, cercare "tuple python"
             # Questo ci permette non solo di calcolare più volte il rapporto AF,
             # ma anche di scrivere meno codice / codice più elegante.
-            AF, error, mixture_type = AutoCARB.rapporto_aria_benzina(args["temp"], args["pressione"], args["phi"],
+            AF, error, mixture_type = AutoCARB.rapporto_aria_benzina(args["oil_percentage"],args["temp"], args["pressione"], args["phi"],
                         args["dpressione"], args["d1"], args["d3"], args["d2max"], args["d2min"],
                         args["hc"], args["hd"], args["dgetto"], args["lcd"])
 
             # Step 4: Rappresentazione dei risultati e degli avvisi
             self.root.ids["af"].text = str(np.round(AF, decimals = 2))
-            self.root.ids["err"].text = str(str(np.round(error, decimals = 2))+' %')
             self.root.ids["mixture_label"].text = str(mixture_type)
             if mixture_type == MixtureType.Rich or mixture_type == MixtureType.Lean:
                 self.root.ids["mixture_label"].text_color = (255/255, 80/255, 80/255, 1)
+                self.root.ids["err"].text = str(str(np.round(error, decimals = 2))+' %')
             if mixture_type == MixtureType.Stoichiometric:
                 self.root.ids["mixture_label"].text_color = (51/255, 153/255, 51/255, 1)
+                self.root.ids["err"].text = "-"
             if args["temp"] > 50:
                 self.dialog_error(DialogType.Warning ,'''
 The temperature value is too high and generates a bad interpolation in the absolute humidity calculations.
@@ -304,6 +341,8 @@ To avoid errors, when the ambient temperature is above 50 °C, the humidity valu
             if args["temp"] == 50:
                 self.easter_egg()
 
+        except OilError:
+            self.dialog_error(DialogType.Error ,'Input value for oil is not acceptable.')
 
         except NegativeValuesError:
             self.dialog_error(DialogType.Error ,'One or more inputs are null or negative, thus no physical meaning.')   

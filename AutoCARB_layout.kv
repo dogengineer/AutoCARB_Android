@@ -1,5 +1,4 @@
 
-
 <ItemDrawer>:
 
 #Creo un textfield personalizzato
@@ -173,7 +172,7 @@ Screen:
 
                             #Contenuto della home
                             GridLayout:
-                                rows:5                                
+                                rows:7                              
 
                                 #risultati dei calcoli (A/F e errore)   
                                 GridLayout:
@@ -251,7 +250,39 @@ Screen:
                                             pos: self.pos
 
                                 #Spazio vuoto con testo trasparente
-                                MDLabel: 
+                                MDLabel:
+                                    text: "---"
+                                    padding_y: 5
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    theme_text_color: "Custom"
+                                    text_color: 0.3, 1, 0.2, 0
+                                    
+                                #Checkbox controllo 2 o 4 tempi
+                                GridLayout:
+                                    cols:2
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    padding: 25,0
+                                    MDSwitch:
+                                        id:stroke_switch
+                                        width: dp(34)
+                                        size_hint: None, 1
+                                        # size: "0dp", "0dp"
+                                        active: True
+                                        on_active: app.stroke_check(*args)
+                                    MDLabel:
+                                        id: stroke
+                                        halign: "left"
+                                        text: "2 stroke engine"
+                                        padding_x: 100
+                                        size_hint_y: None
+                                        height: self.texture_size[1]
+                                        theme_text_color: "Custom"
+                                        text_color: 0.7, 0.5, 1, 1
+
+                                #Spazio vuoto con testo trasparente
+                                MDLabel:
                                     text: "---"
                                     padding_y: 5
                                     size_hint_y: None
@@ -265,20 +296,32 @@ Screen:
                                     size: self.size
                                     refresh_callback: app.refresh_callback
                                     root_layout: root
-                                    
                                     GridLayout:
                                         size_hint_y: None
                                         height: self.minimum_height
-                                        id: box
-                                        rows: 14
-                                        cols: 1
+                                        rows: 16
                                         padding: 30
-
+                                        
+                                        InputTextField:
+                                            hint_text: "testo prova [%]"
+                                            text: "222"
+                                        
+                                        InputTextField:
+                                            id:oil_percentage
+                                            hint_text: "Oil [%]"                                           
+                                            text: "2" 
+                                            visible: True
+                                            # # size_hint: (1,1) if self.visible else (None,None)
+                                            # size_hint_x: 1 if self.visible else 0
+                                            # size_hint_y: None if self.visible else 0
+                                            opacity: 1 if self.visible else 0.2
+                                            disabled: False if self.visible else True
+                                        
                                         InputTextField:
                                             id:temp
                                             hint_text: "Room Temperature [°C]"                                            
                                             text: "20"
-                                        
+                                              
                                         InputTextField:
                                             id:pressione
                                             hint_text: "Room Pressure [Pa]"                                           

@@ -690,7 +690,7 @@ def portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd):
 
 ######################### RAPPORTO ARIA BENZINA #####################################################
 
-def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd, r_n0 = 1):
+def rapporto_aria_benzina(oil, Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, dgetto, lcd, r_n0 = 1):
     """ 
     metodo di Newton implementato per la stima del coefficiente di attrito del getto 
     
@@ -709,10 +709,10 @@ def rapporto_aria_benzina(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min,hc,hd, d
         coefficiente di attrito
     """
     if NumeroMach(Tamb,pamb,deltap,d3,d2max,d2min) > 1:
-        raise MachError()
-    
+        raise MachError() 
+
     portataA = portata_aria(Tamb, pamb, phi, deltap, d1, d3, d2max, d2min, r_n0 = 1)
-    portataB = portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd)
+    portataB = portata_benzina(Tamb,pamb,deltap,d3,d2max,d2min,hc,hd,dgetto,lcd)*(1-oil)
     AF = portataA / portataB
     errore = errore_rapporto_AF(AF)
     tipo_miscela = tipo_miscela_AF(AF)

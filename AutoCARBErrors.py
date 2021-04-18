@@ -1,3 +1,6 @@
+class OilError(Exception):
+    pass
+
 class NegativeValuesError(Exception):
     pass
 
