@@ -274,7 +274,7 @@ Screen:
                                     MDLabel:
                                         id: stroke
                                         halign: "left"
-                                        text: "2 stroke engine"
+                                        text: "2-Stroke Engine"
                                         padding_x: 100
                                         size_hint_y: None
                                         height: self.texture_size[1]
@@ -301,14 +301,11 @@ Screen:
                                         height: self.minimum_height
                                         rows: 16
                                         padding: 30
-                                        
-                                        InputTextField:
-                                            hint_text: "testo prova [%]"
-                                            text: "222"
+                                                                               
                                         
                                         InputTextField:
                                             id:oil_percentage
-                                            hint_text: "Oil [%]"                                           
+                                            hint_text: "2-Stroke Oil [%]"                                           
                                             text: "2" 
                                             visible: True
                                             # # size_hint: (1,1) if self.visible else (None,None)
@@ -370,7 +367,7 @@ Screen:
                                         InputTextField:
                                             id:dgetto
                                             hint_text: "djet [calbrated hole]"                                           
-                                            text: "97"
+                                            text: "98"
 
                                         InputTextField:
                                             id:lcd
@@ -378,6 +375,13 @@ Screen:
                                             text: "2"
                                         
                                         #SPAZI VUOTI CON TESTO TRASPARENTE PER LO SCROLL
+                                        #serve per evitare che buildozer impazisca sulla versione android
+                                        InputTextField:
+                                            hint_text: ""
+                                            text: ""
+                                            opacity: 0
+                                            disabled: True
+
                                         MDLabel:
                                             text: "---"
                                             padding_y: 150

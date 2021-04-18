@@ -210,7 +210,7 @@ Contact: app.autocarb@gmail.com
         self.root.ids["d2max"].text="19"
         self.root.ids["hc"].text="17"
         self.root.ids["hd"].text="45"
-        self.root.ids["dgetto"].text="97"
+        self.root.ids["dgetto"].text="98"
         self.root.ids["lcd"].text="2"
         #queste tre linee resettano i risultati
         self.root.ids["af"].text="-"
@@ -263,11 +263,11 @@ Contact: app.autocarb@gmail.com
         if value:
             self.root.ids["oil_percentage"].visible = True
             self.root.ids["oil_percentage"].text = "2"
-            self.root.ids["stroke"].text = "2 stroke engine"
+            self.root.ids["stroke"].text = "2-Stroke Engine"
         else:
             self.root.ids["oil_percentage"].visible = False
             self.root.ids["oil_percentage"].text = "0"
-            self.root.ids["stroke"].text = "4 stroke engine"
+            self.root.ids["stroke"].text = "4-Stroke Engine"
 
     def start_button(self):
         try:
