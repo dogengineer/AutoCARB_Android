@@ -198,7 +198,7 @@ Contact: app.autocarb@gmail.com
         self.root.ids["oil_percentage"].visible = True  
         self.root.ids["oil_percentage"].text = "2"
         self.root.ids["stroke_switch"].active = True
-        self.root.ids["stroke"].text = "2 stroke engine"
+        self.root.ids["stroke"].text = "2-Stroke Engine"
 
         self.root.ids["temp"].text="20"
         self.root.ids["pressione"].text="101325"
