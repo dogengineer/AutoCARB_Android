@@ -29,7 +29,7 @@ As for the coefficient used for air, I refer to the model for compressible fluid
 
 ## Download from the Play Store
 
-AutoCARB can be downloaded at the following [link](https://play.google.com/store/apps/details?id=com.github.dogengineer.autocarb&hl=it&gl=US).
+AutoCARB can be downloaded from the following [link](https://play.google.com/store/apps/details?id=com.github.dogengineer.autocarb&hl=it&gl=US).
 
 
 ## User Manual
