@@ -27,6 +27,11 @@ To learn more about the gasoline efflux coefficient equation that I used in the 
 As for the coefficient used for air, I refer to the model for compressible fluids and sub-critical motion described and demonstrated in the [article](https://journals.sagepub.com/doi/10.1243/JMES_JOUR_1960_002_007_02) by Professor S.L.Bragg of the University of Pittsburgh.
 
 
+## Download from the Play Store
+
+AutoCARB can be downloaded at the following [link](https://play.google.com/store/apps/details?id=com.github.dogengineer.autocarb&hl=it&gl=US).
+
+
 ## User Manual
 
 The instruction manual for perfect carburetion is available at [this address](https://drive.google.com/drive/folders/1R0lzU6_zJvO-YX1yDZe_P2RxIkCc_qsJ?usp=sharing).
@@ -52,9 +57,9 @@ The AutoCARB homepage is structured such as:
 
 [Roberta Carlevaris](https://www.instagram.com/robzilla.tattoo/) chief artist and designer
 
-[Alessio Lei](https://github.com/AlessioLei94) computer consultant.
-
 [antipatico](https://github.com/antipatico) git wizard and computer master.
+
+[Alessio Lei](https://github.com/AlessioLei94) computer consultant.
 
 
 ## Contacts
